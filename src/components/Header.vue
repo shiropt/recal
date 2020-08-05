@@ -1,9 +1,9 @@
 <template>
   <header>
-      <router-link to="/" tag="h1" class="title">RICO NOTE</router-link>
+      <router-link to="/" tag="h1" class="title">Recal</router-link>
    <nav class="pc-nav">
       <ul class="header-ul">
-      <router-link to="/genre" tag="li">ジャンルから選ぶ</router-link>
+      <router-link to="/search" tag="li">ジャンルから選ぶ</router-link>
       <router-link to="/food" tag="li">食材から選ぶ</router-link>
       <router-link to="/kal" tag="li">カロリーから選ぶ</router-link>
       </ul>
