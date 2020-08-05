@@ -1,7 +1,17 @@
 <template>
   <div class="profile">
     <Form 
-    :onclick="serchFood"/>
+    :onclick="selectedCategory"/>
+    <ul>
+  <template v-for="(select,index) in selectInfo"
+  >
+  <li :key="index">
+    <a :href="select.categoryUrl">
+    {{select.categoryName}}
+    </a>
+    </li>
+  </template>
+    </ul>
   </div>
 </template>
 <script>
@@ -14,7 +24,9 @@ export default {
   },
     data(){
      return {
-      menuInfo: null
+      menuInfo: null,
+      selectInfo:null
+
       }
   },
   async mounted () {
@@ -27,23 +39,19 @@ export default {
     }
   },
   methods:{
-    serchFood(input,checked){
-      alert([input,...checked])
-    },
     bindingCategory(result){
      const large = result.large;
      const medium = result.medium;
      const small = result.small;
      const  allCategories = [...large,...medium,...small];
     //  console.log(allCategories);
-     this.selectedCategory(allCategories)
+     this.menuInfo=allCategories;
    },
-   selectedCategory(allCategories){
-     const selectedCategory = allCategories.filter(category => {
-       return category.categoryName.includes('味噌')
+   selectedCategory(input,checked){
+     const selectedCategory = this.menuInfo.filter(category => {
+       return category.categoryName.includes(input||checked)
      });
-     this.info= selectedCategory;
-       console.log(selectedCategory);
+     this.selectInfo=selectedCategory
    }
   }
 
