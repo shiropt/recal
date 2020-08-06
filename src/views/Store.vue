@@ -1,34 +1,49 @@
 <template>
-  <div class="menu-list">
-    <h2>飲食店を探す</h2>
-    
-</div>
+  <div class="profile">
+    <h1>外食先を選ぶ</h1>
+    <!-- <Form
+    menu="外食先"/> -->
+
+  </div>
 </template>
 
 <script>
-// const axios = require('axios').default;
-// import "axios"
-export default {
+const axios = require('axios').default;
+import "axios"
+// import Form from "@/components/Form.vue"
 
+export default {
+  // components:{
+  //   Form
+  // },
   data(){
     return{
-      rankInfo:null
+      storeInfo:null
     }
 
   },
-  // async mounted(){
-  //   try{
-  //     const rankRes = await axios.get('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?format=json&formatVersion=1&applicationId=1019675112210690221')
-  //     console.log(rankRes.data.result)
-  //     this.rankInfo= rankRes.data.result;
-  //   }catch(error){
-  //     alert(error.message)
-  //   }
-  // }
+  async mounted(){
+    try{
+      const storeRes = await axios
+      .get("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=720039c5c559d5c97319281d7cc3e669", {
+          params: {
+            freeword:"SAMA"
+
+          }})
+     await  console.log(storeRes)
+      // this.rankInfo= rankRes.data.result;
+    }catch(error){
+      alert(error.message)
+    }
+  }
 }
 </script>
 
 <style>
-
+.menu-list{
+  width: 700px;
+  margin: 0 auto;
+}
 
 </style>
+
