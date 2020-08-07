@@ -16,6 +16,12 @@ Vue.use(VueRouter)
     
     component: () => import('../views/Search.vue')
     },
+  {
+    path: '/store',
+    name: 'Store',
+    
+    component: () => import('../views/Store.vue')
+    },
     {
       path: "*",
       redirect:"/"

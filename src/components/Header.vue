@@ -1,11 +1,11 @@
 <template>
   <header>
-      <router-link to="/" tag="h1" class="title">RICO NOTE</router-link>
+      <router-link to="/" tag="h1" class="title">Recal</router-link>
    <nav class="pc-nav">
       <ul class="header-ul">
-      <router-link to="/genre" tag="li">ジャンルから選ぶ</router-link>
-      <router-link to="/food" tag="li">食材から選ぶ</router-link>
-      <router-link to="/kal" tag="li">カロリーから選ぶ</router-link>
+      <router-link to="/search" tag="li">メニューを考える</router-link>
+      <router-link to="/store" tag="li">外食する</router-link>
+      <router-link to="/kal" tag="li">ログイン</router-link>
       </ul>
    </nav>
 </header>
