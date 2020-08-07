@@ -85,7 +85,7 @@ th{
   width: 40px;
 }
 .img{
-  min-width: 200px;
+  max-width: 200px;
   min-height: 150px;
   background: rgb(235, 232, 229);
   font-size: 32px;

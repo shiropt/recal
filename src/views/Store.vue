@@ -52,17 +52,15 @@ export default {
 
   },
   methods:{
-    async searchStore(input,address,buffet){
+    async searchStore(freeword,address){
       try{
-        if(buffet){
-      buffet=1
-    }
+       
         const storeRes = await axios
         .get("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=720039c5c559d5c97319281d7cc3e669", {
             params: {
-              freeword:input,
-              address:address,
-              buffet:buffet
+              freeword,
+              address,
+              
             }})
        await  console.log(storeRes.data.rest)
         this.storeInfo= storeRes.data.rest;

@@ -20,6 +20,7 @@ export default {
 #app{
   width: 100%;
   height: 100vh;
+  background: #f5f5f5;;
   /* background-image: url("~@/assets/back-img.png"); */
   /* background-size: cover; */
 }

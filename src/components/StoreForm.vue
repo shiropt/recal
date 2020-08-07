@@ -2,13 +2,12 @@
   <div class="store-form">
     <h2>お店を探す</h2>
     <label for="free-word">フリーワード検索：</label>
-   <input type="text" v-model="input"><br>
+   <input type="text" v-model="freeword"><br>
     <label for="area">エリア：</label>
    <input type="text" v-model="address"><br>
-   <button @click="inClick(input,address,buffet)">検索</button>
+   <button @click="inClick(freeword,address)">検索</button>
    <br>
-   <input type="checkbox"  v-model="buffet">食べ放題あり
-   
+  
 
   </div>
 </template>
@@ -18,9 +17,9 @@ export default {
   data(){
     
     return {
-      input:"",
+      freeword:"",
       address:"",
-      buffet:""
+     
     }
   },
   props:{
