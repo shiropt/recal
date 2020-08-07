@@ -3,12 +3,33 @@
     <h1>外食先を選ぶ</h1>
     <StoreForm
     :inClick="searchStore" />
-    <ul>
+    <ul class="store-lists">
     <template v-for="(store,index) in storeInfo">
-    <li :key="index">{{store.name}}</li>
+    <li class="store-list"
+    :key="index">
+     
+       <StoreInfo
+       :shop_image1= store.image_url.shop_image1
+       :name= store.name
+       :address= store.address
+       :holiday= store.holiday
+       :opentime= store.opentime
+       :tel= store.tel
+       :station= store.access.station
+       :walk= store.access.walk
+       :url= store.url
+       :url_mobile= store.url_mobile
+       
+       
+       
+       
+        />
+      </li>
     </template>
 
     </ul>
+    
+  
 
   </div>
 </template>
@@ -17,14 +38,16 @@
 const axios = require('axios').default;
 import "axios"
 import StoreForm from "@/components/StoreForm.vue"
+import StoreInfo from "@/components/StoreInfo.vue"
 
 export default {
   components:{
-    StoreForm
+    StoreForm,
+    StoreInfo
   },
   data(){
     return{
-      storeInfo:null
+      storeInfo:null,
     }
 
   },
@@ -57,6 +80,12 @@ export default {
   width: 700px;
   margin: 0 auto;
 }
-
+.store-lists{
+  display: flex;
+  flex-wrap: wrap;
+}
+.store-list{
+  margin: 15px;
+}
 </style>
 

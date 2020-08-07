@@ -8,6 +8,7 @@
 </template>
 <script>
   import Header from "@/components/Header.vue"
+  import "normalize.css"
 export default {
   components:{
     Header
