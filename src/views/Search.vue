@@ -59,10 +59,10 @@ export default {
      const  allCategories = [...large,...medium,...small];
      this.menuInfo=allCategories;
    },
-   selectedCategory(input,checked){
+   selectedCategory(input){
 
      const selectedCategory = this.menuInfo.filter(category => {
-       return category.categoryName.includes(input||checked)
+       return category.categoryName.includes(input)
      });
      this.selectInfo=selectedCategory
    },
