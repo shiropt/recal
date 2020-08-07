@@ -2,8 +2,9 @@
   <div class="profile">
     <Form 
     :incliment="inclimental"
-    :onclick="selectedCategory"/>
-    <ul>
+    :onclick="selectedCategory"
+    :message="check"/>
+    <ul class="incliment-list">
   <template v-for="(select,index) in selectInfo"
   >
   <li :key="index">
@@ -12,10 +13,8 @@
     </a>
     </li>
   </template>
-    </ul>
-    <ul>
 
-    <template  v-for="(incl,index) in incling" >
+    <template   v-for="(incl,index) in incling" >
       <li :key="index"
       :v-if="incling!==null">
        <a :href="incl.categoryUrl">
@@ -38,7 +37,8 @@ export default {
      return {
       menuInfo: null,
       selectInfo:null,
-      incling:null
+      incling:null,
+      check:false
 
       }
   },
@@ -60,13 +60,19 @@ export default {
      this.menuInfo=allCategories;
    },
    selectedCategory(input){
-
+     if(input===""){
+       this.check=true
+       return
+     }
      const selectedCategory = this.menuInfo.filter(category => {
        return category.categoryName.includes(input)
      });
      this.selectInfo=selectedCategory
+     input="";
+     this.incling="";
    },
    inclimental(input){
+     this.check=false
      const inclu = this.menuInfo.filter(inp =>{
        if(input===""){
          return
@@ -74,6 +80,7 @@ export default {
        return inp.categoryName.includes(input)
      })
      this.incling= inclu;
+     this.selectInfo=""
 
        console.log(this.incling);
       
@@ -83,14 +90,32 @@ export default {
 }
 </script>
 
-<style>
-ul{
-  display: flex;
-  flex-wrap: wrap;
-}
+<style scoped>
 li{
   list-style: none;
   margin: 5px;
+  max-width: 300px;
 }
+.incliment-list{
+    height: 600px;
+    width: 700px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding: 0px;
+  margin: 0px;
+  
+}
+a{
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+}
+a:hover{
+  background:#fd9535;
+  transition: 0.2s;
+  color: white;
+}
+
 
 </style>
