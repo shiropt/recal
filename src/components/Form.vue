@@ -1,8 +1,8 @@
 <template>
   <div class="form">
     <h2>食材から選ぶ</h2>
-   <input type="text" v-model="input">
-   <button @click="onclick(input,checkedFood)">検索</button>
+   <input @input="incliment(input)" type="text" v-model="input">
+   <button @click="onclick(input,checkedFood)" >検索</button>
    <br>
    <input type="checkbox" value="豚肉" v-model="checkedFood">豚肉
    <input type="checkbox" value="鶏肉" v-model="checkedFood">鶏肉
@@ -27,8 +27,13 @@ export default {
     onclick:{
     type:Function,
     required:false
+    },
+    incliment:{
+    type:Function,
+    required:false
     }
   }
+  
 
 }
 </script>

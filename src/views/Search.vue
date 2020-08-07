@@ -1,6 +1,7 @@
 <template>
   <div class="profile">
     <Form 
+    :incliment="inclimental"
     :onclick="selectedCategory"/>
     <ul>
   <template v-for="(select,index) in selectInfo"
@@ -11,6 +12,17 @@
     </a>
     </li>
   </template>
+    </ul>
+    <ul>
+
+    <template  v-for="(incl,index) in incling" >
+      <li :key="index"
+      :v-if="incling!==null">
+       <a :href="incl.categoryUrl">
+      {{incl.categoryName}}
+      </a>
+      </li>
+    </template>
     </ul>
   </div>
 </template>
@@ -25,7 +37,8 @@ export default {
     data(){
      return {
       menuInfo: null,
-      selectInfo:null
+      selectInfo:null,
+      incling:null
 
       }
   },
@@ -44,14 +57,26 @@ export default {
      const medium = result.medium;
      const small = result.small;
      const  allCategories = [...large,...medium,...small];
-    //  console.log(allCategories);
      this.menuInfo=allCategories;
    },
    selectedCategory(input,checked){
+
      const selectedCategory = this.menuInfo.filter(category => {
        return category.categoryName.includes(input||checked)
      });
      this.selectInfo=selectedCategory
+   },
+   inclimental(input){
+     const inclu = this.menuInfo.filter(inp =>{
+       if(input===""){
+         return
+       }
+       return inp.categoryName.includes(input)
+     })
+     this.incling= inclu;
+
+       console.log(this.incling);
+      
    }
   }
 
@@ -59,5 +84,13 @@ export default {
 </script>
 
 <style>
+ul{
+  display: flex;
+  flex-wrap: wrap;
+}
+li{
+  list-style: none;
+  margin: 5px;
+}
 
 </style>
