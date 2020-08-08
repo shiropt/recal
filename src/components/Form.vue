@@ -2,7 +2,7 @@
   <div class="form">
     <h2>食材から選ぶ</h2>
    <input @input="incliment(input)" type="text" v-model="input">
-   <button @click="onclick(input)" >検索</button>
+   <button @click="onclick(input); clear()" >検索</button>
    <p v-if="message">入力してください</p>
   
   </div>
@@ -28,6 +28,12 @@ export default {
       type:Boolean,
       default:false
     }
+  },
+  methods:{
+    clear(){
+      this.input=""
+    }
+
   }
   
 

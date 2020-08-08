@@ -2,7 +2,9 @@
   <div class="profile">
     <h1>外食先を選ぶ</h1>
     <StoreForm
-    :inClick="searchStore" />
+    :inClick="searchStore"
+    :formCheck="check"
+    :clearForm="clearForm" />
     <ul class="store-lists">
     <template v-for="(store,index) in storeInfo">
     <li class="store-list"
@@ -19,10 +21,6 @@
        :walk= store.access.walk
        :url= store.url
        :url_mobile= store.url_mobile
-       
-       
-       
-       
         />
       </li>
     </template>
@@ -48,13 +46,13 @@ export default {
   data(){
     return{
       storeInfo:null,
+      check:false
     }
 
   },
   methods:{
     async searchStore(freeword,address){
       try{
-       
         const storeRes = await axios
         .get("https://api.gnavi.co.jp/RestSearchAPI/v3/?keyid=720039c5c559d5c97319281d7cc3e669", {
             params: {
@@ -62,13 +60,20 @@ export default {
               address,
               
             }})
+        if((freeword||address)===""){
+          this.check=true;
+          return
+        }
        await  console.log(storeRes.data.rest)
         this.storeInfo= storeRes.data.rest;
       }catch(error){
         alert(error.message)
       }
 
-    }
+    },
+  clearForm(){
+    this.check=false;
+  }
   }
 }
 </script>
