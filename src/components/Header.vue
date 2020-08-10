@@ -1,6 +1,11 @@
 <template>
+<v-app-bar color="#fd9535" dark>
   <header>
+   <v-toolbar-title>
       <router-link to="/" tag="h1" class="title">Recal</router-link>
+   </v-toolbar-title>
+
+
    <nav class="pc-nav">
       <ul class="header-ul">
       <router-link to="/search" tag="li">メニューを考える</router-link>
@@ -9,6 +14,7 @@
       </ul>
    </nav>
 </header>
+</v-app-bar>
 </template>
 
 <script>
@@ -20,38 +26,27 @@ export default {
 
 <style scoped>
 header {
-  cursor: pointer;
    position: fixed;
    top: 0;
    width: 100%;
    height: 60px;
-   background-color: rgb(192, 188, 188,0.5);
    display: flex;
    align-items: center;
-   color: white;
 }
-.title {
-  height: 100%;
-  line-height: 60px;
-   margin-left:24px;
-   padding:0 16px 0px;
-   font-size: 20px;
-   list-style: none;
-}
-nav {
+
+/* nav {
    margin: 0 auto;
    height: 100%;
 
-}
+} */
 .header-ul {
    list-style: none;
    margin: 0;
    display: flex;
-   height: 100%;
+   height: 90%;
 }
 .header-ul >li {
    line-height: 60px;
-  height: 100%;
    margin: 0 0 0 60px;
    font-size: 16px;
    cursor: pointer;
