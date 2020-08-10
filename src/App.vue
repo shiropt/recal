@@ -1,9 +1,9 @@
 <template>
   <div id="app">
       <Header />
-       <div class="bg-mask">
+
     <router-view class="menu"/>
-      </div>
+    
   </div>
 </template>
 <script>
