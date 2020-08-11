@@ -15,7 +15,7 @@
       <router-link to="/store" tag="li">外食する</router-link>
       </v-tab>
          <v-tab>
-      <router-link to="/kal" tag="li">ログイン</router-link>
+      <router-link to="/login" tag="li">ログイン</router-link>
       </v-tab>
       </ul>
          </v-tabs>
