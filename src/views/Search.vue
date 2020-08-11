@@ -2,8 +2,7 @@
   <div class="profile">
     <Form 
     :incliment="inclimental"
-    :onclick="selectedCategory"
-    :message="check"/>
+    />
     <ul class="incliment-list">
   <template v-for="(select,index) in selectInfo"
   >
@@ -38,7 +37,7 @@ export default {
       menuInfo: null,
       selectInfo:null,
       incling:null,
-      check:false
+  
 
       }
   },
@@ -59,20 +58,7 @@ export default {
      const  allCategories = [...large,...medium,...small];
      this.menuInfo=allCategories;
    },
-   selectedCategory(input){
-     if(input===""){
-       this.check=true
-       return
-     }
-     const selectedCategory = this.menuInfo.filter(category => {
-       return category.categoryName.includes(input)
-     });
-     this.selectInfo=selectedCategory
-     input="";
-     this.incling="";
-   },
    inclimental(input){
-     this.check=false
      const inclu = this.menuInfo.filter(inp =>{
        if(input===""){
          return
