@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .day-menu{
   height: 50px;
   display: flex;

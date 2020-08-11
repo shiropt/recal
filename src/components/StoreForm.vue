@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .pref-list{
   display: flex;
     flex-wrap: wrap;

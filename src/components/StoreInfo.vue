@@ -70,7 +70,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .store-info{
   width: 650px;
   height: 250px;
