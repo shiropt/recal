@@ -1,11 +1,13 @@
 <template>
-  <div class="form">
-    <h2>食材から選ぶ</h2>
-   <input @input="incliment(input)" type="text" v-model="input">
-   <button @click="onclick(input); clear()" >検索</button>
-   <p v-if="message">入力してください</p>
+  <v-form class="form">
+   <v-text-field 
+   @input="incliment(input)" 
+   type="text" 
+   label="今日はなにをつくる？"
+   v-model="input"></v-text-field>
   
-  </div>
+  
+  </v-form>
 </template>
 
 <script>
@@ -16,31 +18,18 @@ export default {
     }
   },
   props:{
-    onclick:{
-    type:Function,
-    required:false
-    },
     incliment:{
     type:Function,
     required:false
-    },
-    message:{
-      type:Boolean,
-      default:false
     }
   },
-  methods:{
-    clear(){
-      this.input=""
-    }
-
-  }
+ 
   
 
 }
 </script>
 
-<style>
+<style scoped>
 input{
   border: 1px solid black;
 }
