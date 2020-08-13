@@ -12,37 +12,21 @@ Vue.use(VueRouter)
       path: '/login',
       name: 'Login',
       component: Login,
-      beforeEnter: (to, from, next) => {
-        console.log('route(root):⊂(´ーωー｀)⊃r');
-        next();
-      }
       },
   {
     path: '/',
     name: 'Search',
     component: Search,
-    beforeEnter: (to, from, next) => {
-      console.log('route(Search):(´・ω・｀)ショボーン');
-      next();
-    },
     children: [
       {
         path: 'store',
         name: 'Store',
         component: Store,
-        beforeEnter: (to, from, next) => {
-          console.log('route(Store)');
-          next();
-        },
       },
       {
         path: 'recipe',
         name: 'Recipe',
         component: Recipe,
-        beforeEnter: (to, from, next) => {
-          console.log('route(Recipe)');
-          next();
-        },
       }
     ]
   },
