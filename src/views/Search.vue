@@ -1,121 +1,28 @@
 <template>
-  <div class="profile">
-    <Form 
-    :incliment="inclimental"
-    :onclick="selectedCategory"
-    :message="check"/>
-    <ul class="incliment-list">
-  <template v-for="(select,index) in selectInfo"
-  >
-  <li :key="index">
-    <a :href="select.categoryUrl">
-    {{select.categoryName}}
-    </a>
-    </li>
-  </template>
+<div>
+  記録一覧<br>
+  <v-btn color="orange" class="mr-4">
+   <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="button">レシピを見る</router-link>
+  </v-btn>
+  <v-btn color="error" class="mr-4">
+   <router-link :to="{name: 'Store', params:{id:$route.params.id}}" tag="button">外食する</router-link>
+  </v-btn>
+   <hr>
 
-    <template   v-for="(incl,index) in incling" >
-      <li :key="index"
-      :v-if="incling!==null">
-       <a :href="incl.categoryUrl">
-      {{incl.categoryName}}
-      </a>
-      </li>
-    </template>
-    </ul>
-  </div>
+   <router-view></router-view>
+</div>
+  
 </template>
+
 <script>
-const axios = require('axios').default;
-import "axios"
-import Form from "@/components/Form.vue"
 export default {
-  components:{
-    Form
-  },
-    data(){
-     return {
-      menuInfo: null,
-      selectInfo:null,
-      incling:null,
-      check:false
-
-      }
-  },
-  async mounted () {
-    try{
-      const menuRes = await axios.get('https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?format=json&formatVersion=1&applicationId=1019675112210690221')
-
-      this.bindingCategory(menuRes.data.result)
-    }catch(error){
-      alert(error.message)
-    }
-  },
-  methods:{
-    bindingCategory(result){
-     const large = result.large;
-     const medium = result.medium;
-     const small = result.small;
-     const  allCategories = [...large,...medium,...small];
-     this.menuInfo=allCategories;
-   },
-   selectedCategory(input){
-     if(input===""){
-       this.check=true
-       return
-     }
-     const selectedCategory = this.menuInfo.filter(category => {
-       return category.categoryName.includes(input)
-     });
-     this.selectInfo=selectedCategory
-     input="";
-     this.incling="";
-   },
-   inclimental(input){
-     this.check=false
-     const inclu = this.menuInfo.filter(inp =>{
-       if(input===""){
-         return
-       }
-       return inp.categoryName.includes(input)
-     })
-     this.incling= inclu;
-     this.selectInfo=""
-
-       console.log(this.incling);
-      
-   }
-  }
 
 }
 </script>
 
-<style scoped>
-li{
-  list-style: none;
-  margin: 5px;
-  max-width: 300px;
-}
-.incliment-list{
-    height: 600px;
-    width: 700px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        padding: 0px;
-  margin: 0px;
-  
-}
+<style>
 a{
   text-decoration: none;
-  color: black;
-  padding: 5px;
 }
-a:hover{
-  background:#fd9535;
-  transition: 0.2s;
-  color: white;
-}
-
 
 </style>

@@ -1,6 +1,5 @@
 <template>
-  <div class="profile">
-    <h1>外食先を選ぶ</h1>
+  <div >
     <StoreForm
     :inClick="searchStore"
     :formCheck="check"
@@ -78,7 +77,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .menu-list{
   width: 700px;
   margin: 0 auto;

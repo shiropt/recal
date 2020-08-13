@@ -1,14 +1,23 @@
 <template>
-  <header>
-      <router-link to="/" tag="h1" class="title">Recal</router-link>
-   <nav class="pc-nav">
-      <ul class="header-ul">
-      <router-link to="/search" tag="li">メニューを考える</router-link>
-      <router-link to="/store" tag="li">外食する</router-link>
-      <router-link to="/kal" tag="li">ログイン</router-link>
+<v-app-bar color="orange"  class="header">
+         <v-tabs color="white">
+         <v-tab>
+   <v-toolbar-title>
+      <router-link to="/" class="title" tag="h1" >Recal</router-link>
+   </v-toolbar-title>
+      </v-tab>
+      <v-spacer></v-spacer>
+      <ul class="nav">
+         <v-tab>
+      <router-link to="/search/1" tag="li">メニューを考える</router-link>
+      </v-tab>
+         <v-tab>
+      <router-link to="/login" tag="li">ログイン</router-link>
+      </v-tab>
       </ul>
-   </nav>
-</header>
+         </v-tabs>
+
+</v-app-bar>
 </template>
 
 <script>
@@ -19,52 +28,21 @@ export default {
 </script>
 
 <style scoped>
-header {
-  cursor: pointer;
-   position: fixed;
-   top: 0;
-   width: 100%;
-   height: 60px;
-   background-color: rgb(192, 188, 188,0.5);
-   display: flex;
-   align-items: center;
+a{
+   text-decoration: none;
    color: white;
 }
-.title {
-  height: 100%;
-  line-height: 60px;
-   margin-left:24px;
-   padding:0 16px 0px;
-   font-size: 20px;
-   list-style: none;
-}
-nav {
-   margin: 0 auto;
-   height: 100%;
-
-}
-.header-ul {
-   list-style: none;
-   margin: 0;
+.nav{
    display: flex;
-   height: 100%;
 }
-.header-ul >li {
-   line-height: 60px;
-  height: 100%;
-   margin: 0 0 0 60px;
-   font-size: 16px;
-   cursor: pointer;
+.title{
+   color: white;
 }
-li:hover{
-  background: white;
-  color: black;
-  transition: 0.6s;
+li{
+
+   color: white;
+   list-style: none;
 }
-.title:hover{
-  background: white;
-  color: black;
-  transition: 0.6s;
-}
+
 
 </style>

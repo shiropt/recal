@@ -1,10 +1,22 @@
 <template>
   <div class="store-form">
-    <label for="free-word">フリーワード検索：</label>
-   <input @input="clearForm" type="text" v-model="freeword"><br>
-    <label for="area">エリア検索：</label>
-   <input @input="clearForm" type="text" v-model="address"><br>
-   <button @click="inClick(freeword,address); clear()">検索</button>
+   <v-text-field 
+   @input="clearForm" 
+   type="text" 
+   v-model="freeword"
+   label="フリーワード検索"
+   ></v-text-field>
+   <v-text-field 
+   @input="clearForm"
+    type="text"
+    v-model="address"
+    label="エリア検索"
+     ></v-text-field>
+
+   <v-btn
+   class="ma-2" outlined color="orange"
+    @click="inClick(freeword,address);
+     clear()">検索</v-btn>
     <p v-if="formCheck">入力してください</p>
 
   </div>
@@ -16,7 +28,6 @@ export default {
     return {
       freeword:"",
       address:"",
-     
     }
   },
   props:{
@@ -44,18 +55,6 @@ export default {
 }
 </script>
 
-<style>
-.pref-list{
-  display: flex;
-    flex-wrap: wrap;
-
-}
-.form{
-background: wheat;
-}
-h2{
-color: white;
-}
-
+<style scoped>
 
 </style>
