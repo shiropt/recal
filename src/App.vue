@@ -20,7 +20,7 @@ export default {
 <style scoped>
 #app{
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: #f5f5f5;;
 }
 .menu{

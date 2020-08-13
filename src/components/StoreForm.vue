@@ -56,17 +56,5 @@ export default {
 </script>
 
 <style scoped>
-.pref-list{
-  display: flex;
-    flex-wrap: wrap;
-
-}
-.form{
-background: wheat;
-}
-h2{
-color: white;
-}
-
 
 </style>

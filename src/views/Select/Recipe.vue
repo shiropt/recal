@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div>
     <RecipeForm 
     :typing="SeachRecipe"
     />
@@ -97,6 +97,4 @@ a:hover{
   transition: 0.2s;
   color: white;
 }
-
-
 </style>
