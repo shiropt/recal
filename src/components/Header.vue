@@ -9,10 +9,7 @@
       <v-spacer></v-spacer>
       <ul class="nav">
          <v-tab>
-      <router-link to="/search" tag="li">メニューを考える</router-link>
-      </v-tab>
-         <v-tab>
-      <router-link to="/store" tag="li">外食する</router-link>
+      <router-link to="/search/1" tag="li">メニューを考える</router-link>
       </v-tab>
          <v-tab>
       <router-link to="/login" tag="li">ログイン</router-link>
