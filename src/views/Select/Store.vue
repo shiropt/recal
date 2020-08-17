@@ -8,7 +8,10 @@
     <template v-for="(store,index) in storeInfo">
     <li class="store-list"
     :key="index">
-     
+
+     <input type="checkbox"
+      :value="store.name" 
+      v-model="addStore">
        <StoreInfo
        :shop_image1= store.image_url.shop_image1
        :name= store.name
@@ -45,7 +48,8 @@ export default {
   data(){
     return{
       storeInfo:null,
-      check:false
+      check:false,
+      addStore:[]
     }
 
   },
@@ -63,7 +67,6 @@ export default {
           this.check=true;
           return
         }
-       await  console.log(storeRes.data.rest)
         this.storeInfo= storeRes.data.rest;
       }catch(error){
         alert(error.message)
