@@ -3,17 +3,22 @@
   <div id="app">
       <Header />
     <router-view class="menu"></router-view >
+    <List />
     
   </div>
 </v-app>
 </template>
 <script>
+
   import Header from "@/components/Header.vue"
+  import List from "@/components/List.vue"
   import "normalize.css"
 export default {
   components:{
-    Header
-  }
+    Header,
+    List
+  },
+  
 }
 </script>
 
