@@ -1,6 +1,5 @@
 <template>
 <div>
-  記録一覧<br>
   <v-btn color="orange" class="mr-4">
    <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="button">レシピを見る</router-link>
   </v-btn>

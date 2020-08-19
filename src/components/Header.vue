@@ -1,48 +1,41 @@
-<template>
-<v-app-bar color="orange"  class="header">
-         <v-tabs color="white">
-         <v-tab>
-   <v-toolbar-title>
+<template v-slot:header>
+        <v-toolbar
+          dark
+          color="orange"
+        >
+        <v-toolbar-title>
       <router-link to="/" class="title" tag="h1" >Recal</router-link>
    </v-toolbar-title>
-      </v-tab>
-      <v-spacer></v-spacer>
-      <ul class="nav">
-         <v-tab>
-      <router-link to="/search/1" tag="li">メニューを考える</router-link>
-      </v-tab>
-         <v-tab>
-      <router-link to="/login" tag="li">ログイン</router-link>
-      </v-tab>
-      </ul>
-         </v-tabs>
+     
+   <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            flat
+            solo-inverted
+            hide-details
+            label="Search"
+          ></v-text-field>
+         
+   <v-spacer></v-spacer>
+      <router-link to="/login" >Logout</router-link>
+   <v-spacer></v-spacer>
+      
 
-</v-app-bar>
-</template>
-
-<script>
-
-export default {
- 
-}
-</script>
-
-<style scoped>
-a{
-   text-decoration: none;
-   color: white;
-}
-.nav{
-   display: flex;
-}
-.title{
-   color: white;
-}
-li{
-
-   color: white;
-   list-style: none;
-}
-
-
-</style>
+        </v-toolbar>
+      </template>
+      
+      
+      <script>
+      export default {
+         data(){
+            return {
+               search:""
+         }
+      
+      }
+      }
+      </script>
+      
+      <style>
+      
+      </style>

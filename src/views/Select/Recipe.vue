@@ -1,24 +1,20 @@
 <template>
   <div>
     <RecipeForm 
-    :typing="SeachRecipe"
+    :typing="seachRecipe"
     />
     <ul class="incliment-list">
-  <template v-for="(select,index) in selectInfo"
-  >
-  <li :key="index">
-    <a :href="select.categoryUrl">
-    {{select.categoryName}}
-    </a>
-    </li>
-  </template>
-
+    <v-btn @click="post" v-if="recipeLists!==null">登録</v-btn>
     <template   v-for="(recipe,index) in recipeLists" >
       <li :key="index"
       :v-if="recipeLists!==null">
+      <input type="checkbox"
+      :value="recipe.categoryName" 
+      v-model="addMenu">
        <a :href="recipe.categoryUrl">
       {{recipe.categoryName}}
       </a>
+      
       </li>
     </template>
     </ul>
@@ -34,9 +30,10 @@ export default {
       },
     data(){
      return {
+      addMenu:[],
       menuInfo: null,
-      selectInfo:null,
       recipeLists:null,
+      choised:[]
       }
   },
   async mounted () {
@@ -56,7 +53,7 @@ export default {
      const allCategories = [...large,...medium,...small];
      this.menuInfo=allCategories;
    },
-   SeachRecipe(input){
+   seachRecipe(input){
      const hitRecipe = this.menuInfo.filter(menuList =>{
        if(input===""){
          return
@@ -64,8 +61,13 @@ export default {
        return menuList.categoryName.includes(input)
      })
      this.recipeLists= hitRecipe;
-     this.selectInfo=""
-   }
+   },
+   post(){
+     this.choised.push(this.addMenu)
+     for(let i=0;i<this.choised.length;i++){
+       console.log(this.choised[i]);
+     }
+      }
   }
 
 }
@@ -78,10 +80,8 @@ li{
   max-width: 300px;
 }
 .incliment-list{
-    height: 600px;
-    width: 700px;
+    width: 100%;
         display: flex;
-        flex-direction: column;
         flex-wrap: wrap;
         padding: 0px;
   margin: 0px;
