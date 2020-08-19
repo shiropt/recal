@@ -1,10 +1,17 @@
 <template>
 <v-app>
   <div id="app">
-      <Header />
-    <router-view class="menu"></router-view >
-    <List />
-    
+      <Header class="header"/>
+      <v-container fluid class="container">
+        <v-row>
+          <v-col cols="8">    
+          <router-view class="menu"></router-view >
+          </v-col>
+          <v-col cols="4">
+          <List class="list"/>
+          </v-col>
+        </v-row>
+      </v-container>
   </div>
 </v-app>
 </template>
@@ -18,18 +25,29 @@ export default {
     Header,
     List
   },
-  
+ 
 }
 </script>
 
 <style scoped>
-#app{
-  width: 100%;
-  height: 100%;
-  background: #f5f5f5;;
-}
+
 .menu{
   padding-top: 60px;
 }
+.header{
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+.list{
+  /* position: fixed; */
+  position: absolute; 
+   top:60px
+}
+.container{
+  margin: 0 auto;
+}
+
 
 </style>
+ 
