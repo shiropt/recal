@@ -48,9 +48,10 @@
               <v-card-title class="subheading font-weight-bold">{{item.date}}
                 <v-spacer></v-spacer>
                 <Dialog 
-                @updated="updateTest"
+                @updated="update(item.date)"
+                :setData="(item)"
                 />
-                <v-btn @click="update(item.date)">更新</v-btn></v-card-title>
+              </v-card-title>
               <v-divider></v-divider>
               <v-list dense>
                 <v-list-item
@@ -160,6 +161,9 @@ import Dialog from "@/components/Dialog.vue"
       }
     },
     computed: {
+      fetchHoldMenu(){
+      return this.$store.state.menus
+    },
       numberOfPages () {
         return Math.ceil(this.items.length / this.itemsPerPage)
       },
@@ -168,11 +172,6 @@ import Dialog from "@/components/Dialog.vue"
       },
     },
     methods: {
-      updateTest(morning,lunch,dinner){
-       console.log(morning);
-       console.log(lunch);
-       console.log(dinner);
-      },
       nextPage () {
         if (this.page + 1 <= this.numberOfPages) this.page += 1
       },
@@ -207,29 +206,36 @@ import Dialog from "@/components/Dialog.vue"
         }
       },
       async update(updateDate){
+        const stateMenus = this.fetchHoldMenu
         const snapShot =  await dbMenus.orderBy('date').get()
-         const array =  snapShot.docs.map((doc)=>{
+         const getMenuArray =  snapShot.docs.map((doc)=>{
            return doc.data();
          });
-         const t = array.find(arr =>{
+         const findDate = getMenuArray.find(arr =>{
            return arr.date.toDate().toLocaleDateString()===updateDate
          })
 
-        const d = await dbMenus.where('date','==',t.date).get()
-        const id = d.docs[0].id
+        const updateDay = await dbMenus.where('date','==',findDate.date).get()
+        const id = updateDay.docs[0].id
 
-        await dbMenus.doc(id).update({morning:"ん"})
+        await dbMenus.doc(id).update(
+          {morning:stateMenus.morning,
+          lunch:stateMenus.lunch,
+          dinner:stateMenus.dinner});
+
         this.fetchMenu()
+        this.$store.commit("initialMenu");
+
       },
       async fetchMenu(){
         const snapShot =  await dbMenus.orderBy('date').get()
-         const array =  snapShot.docs.map((doc)=>{
+         const getMenuArray =  snapShot.docs.map((doc)=>{
            return doc.data();
          });
-         array.forEach(arr =>{
+         getMenuArray.forEach(arr =>{
            return arr.date = arr.date.toDate().toLocaleDateString()
          })
-         this.items=array.reverse();
+         this.items=getMenuArray.reverse();
 
       }
     },
