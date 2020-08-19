@@ -51,6 +51,9 @@
                 @updated="update(item.date)"
                 :setData="(item)"
                 />
+                <DeleteButton
+                :deleteDay="(item)"
+                @fetchDelete="fetchMenu" />
               </v-card-title>
               <v-divider></v-divider>
               <v-list dense>
@@ -128,11 +131,13 @@
 </template>
 <script>
 import Dialog from "@/components/Dialog.vue"
+import DeleteButton from "@/components/DeleteButton.vue"
   import {dbMenus} from "@/db"
    import firebase from "firebase"
   export default {
     components:{
-      Dialog
+      Dialog,
+      DeleteButton
     },
     data () {
       return {
