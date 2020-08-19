@@ -41,8 +41,6 @@
   </v-row>
 </template>
 <script>
-  // import {dbMenus} from "@/db"
-  //  import firebase from "firebase"
   export default {
     props:{
       setData:{
