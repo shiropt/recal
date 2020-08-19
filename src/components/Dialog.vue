@@ -7,6 +7,7 @@
           dark
           v-bind="attrs"
           v-on="on"
+          @click="setAlreadyMenu"
         >
           Edit
         </v-btn>
@@ -40,7 +41,15 @@
   </v-row>
 </template>
 <script>
+  // import {dbMenus} from "@/db"
+  //  import firebase from "firebase"
   export default {
+    props:{
+      setData:{
+        type:Object
+      },
+      
+    },
     data: () => ({
       dialog: false,
       morning:null,
@@ -48,8 +57,21 @@
       dinner:null
     }),
     methods:{
+       setAlreadyMenu(){
+        this.morning=this.setData.morning
+        this.lunch=this.setData.lunch
+        this.dinner=this.setData.dinner
+      },
       upDate(){
-        this.$emit("updated",this.morning,this.lunch,this.dinner)
+        const payload = 
+           { morning: this.morning ,
+           lunch: this.lunch ,
+            dinner: this.dinner };
+        this.$store.commit("holdMenu",payload);
+        this.$emit("updated")
+        this.morning=null,
+        this.lunch=null,
+        this.dinner=null
       }
     }
    
