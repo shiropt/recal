@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="store">
     <StoreForm
     :inClick="searchStore"
     :formCheck="check"
@@ -81,6 +81,9 @@ export default {
 </script>
 
 <style scoped>
+.store{
+  width: 90%;
+}
 .menu-list{
   width: 700px;
   margin: 0 auto;

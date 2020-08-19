@@ -80,10 +80,8 @@ li{
   max-width: 300px;
 }
 .incliment-list{
-    height: 600px;
-    width: 700px;
+    width: 100%;
         display: flex;
-        flex-direction: column;
         flex-wrap: wrap;
         padding: 0px;
   margin: 0px;
