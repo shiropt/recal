@@ -128,7 +128,7 @@
 <script>
 import Dialog from "@/components/Dialog.vue"
 import DeleteButton from "@/components/DeleteButton.vue"
-  import {dbMenus} from "@/db"
+  import {dbUsers} from "@/db"
    import firebase from "firebase"
   export default {
     components:{
@@ -137,6 +137,7 @@ import DeleteButton from "@/components/DeleteButton.vue"
     },
     data () {
       return {
+        user: firebase.auth().currentUser,
         today:new Date(),
         formValidate:false,
         morning:null,
@@ -197,7 +198,10 @@ import DeleteButton from "@/components/DeleteButton.vue"
       dinner,
       date:firebase.firestore.FieldValue.serverTimestamp()
     }
-      await dbMenus.add(postData);
+    const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
+        const currentUserId = searchCurrentUser.docs[0].id
+        const menus = await dbUsers.doc(currentUserId).collection("menus")
+      await menus.add(postData);
       this.fetchMenu();
       this.morning=null
       this.lunch=null
@@ -207,37 +211,38 @@ import DeleteButton from "@/components/DeleteButton.vue"
         }
       },
       async update(updateDate){
-        const stateMenus = this.fetchHoldMenu
-        const snapShot =  await dbMenus.orderBy('date').get()
-         const getMenuArray =  snapShot.docs.map((doc)=>{
-           return doc.data();
-         });
-         const findDate = getMenuArray.find(arr =>{
-           return arr.date.toDate().toLocaleDateString()===updateDate
+          const stateMenus = this.fetchHoldMenu
+         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
+        const currentUserId = searchCurrentUser.docs[0].id
+          const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
+
+        const menus = await dbUserMenus.get()
+        const myMenu = menus.docs.map(doc => doc.data())
+        const findUpdateDate = myMenu.find(arr =>{
+          return arr.date.toDate().toLocaleDateString()===updateDate
          })
+        const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
+        const id = upday.docs[0].id
 
-        const updateDay = await dbMenus.where('date','==',findDate.date).get()
-        const id = updateDay.docs[0].id
-
-        await dbMenus.doc(id).update(
+        await dbUserMenus.doc(id).update(
           {morning:stateMenus.morning,
           lunch:stateMenus.lunch,
           dinner:stateMenus.dinner});
-
-        this.fetchMenu()
+           this.fetchMenu()
         this.$store.commit("initialMenu");
 
       },
       async fetchMenu(){
-        const snapShot =  await dbMenus.orderBy('date').get()
-         const getMenuArray =  snapShot.docs.map((doc)=>{
-           return doc.data();
-         });
-         getMenuArray.forEach(arr =>{
-           return arr.date = arr.date.toDate().toLocaleDateString()
-         })
-         this.items=getMenuArray.reverse();
+        const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
+        const currentUserId = searchCurrentUser.docs[0].id
+        const menus = await dbUsers.doc(currentUserId).collection("menus").orderBy('date').get()
+        const myMenu = menus.docs.map(doc => doc.data())
 
+        myMenu.forEach(todayMenu => {
+          return todayMenu.date = todayMenu.date.toDate().toLocaleDateString()
+        })
+
+        this.items= myMenu.reverse();    
       }
     },
    created(){
