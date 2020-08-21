@@ -43,7 +43,7 @@
 </template>
 <script>
 import firebase from 'firebase'
-
+import {dbUsers} from "@/db"
   export default {
     data: () => ({
       valid: true,
@@ -72,11 +72,24 @@ import firebase from 'firebase'
         try{
           await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           this.$store.commit("authStateChanged")
+          this.addUser()
           this.$router.push('/search')
           alert("登録ありがとうございます！")
         }catch(error){
           alert(error.message)
         }
+      },
+      async addUser(){
+       const user = firebase.auth().currentUser
+       const userData = {
+         userId:user.uid,
+         email:user.email
+       }
+       try{
+         await dbUsers.add(userData)
+       }catch(error){
+         alert(error.message)
+       }        
       }
     },
   }
