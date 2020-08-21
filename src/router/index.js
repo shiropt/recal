@@ -1,20 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/Login.vue'
+import Authentication from '../views/Authentication.vue'
 import Search from '../views/Search.vue'
 import Store from '@/views/Select/Store.vue'
 import Recipe from '@/views/Select/Recipe.vue'
+import Signup from '@/views/Auth/Signup.vue'
+import Signin from '@/views/Auth/Signin.vue'
+// import firebase from 'firebase'
 
 Vue.use(VueRouter)
 
   const routes = [
     {
-      path: '/login',
-      name: 'Login',
-      component: Login,
+      path: '/',
+      name: 'Authentication',
+      component: Authentication,
+      // beforeEnter(to, from, next) {
+      //   const user = firebase.auth().currentUser;
+      //   if (user) {
+      //     next('/search');
+      //   } else {
+      //     next("/");
+      //   }
+      // },
+      children: [
+        {
+          path: 'signup',
+          name: 'Signup',
+          component: Signup,
+        },
+        {
+          path: 'signin',
+          name: 'Signin',
+          component: Signin,
+        }
+      ]
       },
   {
-    path: '/',
+    path: '/search',
     name: 'Search',
     component: Search,
     children: [

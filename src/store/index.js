@@ -10,7 +10,11 @@ export default new Vuex.Store({
     menus: {
        morning: null ,
        lunch: null ,
-       dinner: null },
+      dinner: null
+    },
+    user: {
+      authState:false
+    }
       
     
   },
@@ -23,6 +27,12 @@ export default new Vuex.Store({
         morning: null ,
         lunch: null ,
         dinner: null }
+    },
+    authStateChanged(state) {
+      state.user.authState = true
+    },
+    authState(state) {
+      state.user.authState = false
     }
   },
   actions: {
