@@ -14,4 +14,4 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 export const db = firebase.firestore();
-export const dbMenus = db.collection("menus");
+export const dbUsers = db.collection("users");
