@@ -22,7 +22,6 @@
                 :setData="item"
                 :saveData ="getUpdateIndex(index)"
                 btnTitle="編集"
-                @fetch="log"
                 />
                 <DeleteButton
                 :deleteDay="(item)"
@@ -133,6 +132,8 @@ export default {
             dinner: null,
           },
         ],
+        everydayMenu:this.$store.state.everydayMenu
+
       }
     },
     computed: {
@@ -147,9 +148,6 @@ export default {
       },
     },
     methods: {
-      log(){
-         console.log("ok");
-      },
       nextPage () {
         if (this.page + 1 <= this.numberOfPages) this.page += 1
       },
@@ -163,6 +161,7 @@ export default {
       async fetchMenu(){
         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id
+
         const menus = await dbUsers.doc(currentUserId).collection("menus").orderBy('date').get()
         const myMenu = menus.docs.map(doc => doc.data())
 
@@ -200,11 +199,17 @@ export default {
            this.$store.commit("initialMenu");
 
      },
+     watchTest(){
+       console.log("watch!");
+     }
    
     },
    created(){
       this.fetchMenu();
-  }
+  },
+  watch:{
+      '$store.state.everydayMenu': 'fetchMenu'
+    }
   };
 </script>
 

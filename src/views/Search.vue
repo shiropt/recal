@@ -46,11 +46,15 @@ methods:{
      const currentUserId = searchCurrentUser.docs[0].id
      const menus = await dbUsers.doc(currentUserId).collection("menus")
      await menus.add(inputedMenus);
+     this.$store.dispatch("fetchMenu")
    }catch(error){
      alert(error.message)
    }
 },
 
+},
+created(){
+  this.$store.dispatch("fetchMenu")
 }
 }
 </script>
