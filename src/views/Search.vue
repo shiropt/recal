@@ -24,17 +24,32 @@
 <script>
 import Dialog from "@/components/Dialog.vue"
  import List from "@/components/List.vue"
+  import {dbUsers} from "@/db"
+   import firebase from "firebase"
 export default {
 
 components:{
   Dialog,
   List
 },
+data(){
+  return{
+    user: firebase.auth().currentUser,
+  }
+},
 methods:{
-  saveMenu(){
-    console.log("新しい投稿です");
-
-}
+ async saveMenu(inputedMenus){
+   try{
+     inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
+ 
+     const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
+     const currentUserId = searchCurrentUser.docs[0].id
+     const menus = await dbUsers.doc(currentUserId).collection("menus")
+     await menus.add(inputedMenus);
+   }catch(error){
+     alert(error.message)
+   }
+},
 
 }
 }

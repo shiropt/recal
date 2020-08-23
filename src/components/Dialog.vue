@@ -76,20 +76,20 @@
         this.dinner=editMenu.dinner
       
       },
-      clickSave(){
+     clickSave(){
          const payload = {
            morning: this.morning ,
            lunch: this.lunch ,
            dinner: this.dinner 
            };
         this.$store.commit("holdMenu",payload);
-
         this.saveData(payload)
         this.dialog = false
         this.morning=null,
         this.lunch=null,
         this.dinner=null
-      }
+      },
+
     }
    
   }

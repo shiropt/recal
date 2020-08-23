@@ -1,37 +1,12 @@
 <template>
-<!-- <v-app> -->
   <v-container fluid>
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
       :page="page"
-      :search="search"
       hide-default-footer
     >
       <template v-slot:default="props">
-        <v-form>
-          <v-text-field 
-          label="morning"
-          v-model="morning"
-          ></v-text-field>
-          <v-text-field 
-          label="lunch"
-          v-model="lunch"
-          ></v-text-field>
-          <v-text-field 
-          label="dinner"
-          v-model="dinner"
-          ></v-text-field>
-        <div class="form_wrapper">
-          <v-btn
-            @click="saveMenu({morning,lunch,dinner})"
-          >送信
-          </v-btn>
-         <transition>
-          <p v-if="formValidate" class="alart">入力してください</p>
-        </transition>
-        </div>
-        </v-form>
 
         <v-row class="card-list">
           <v-col
@@ -47,6 +22,7 @@
                 :setData="item"
                 :saveData ="getUpdateIndex(index)"
                 btnTitle="編集"
+                @fetch="log"
                 />
                 <DeleteButton
                 :deleteDay="(item)"
@@ -124,14 +100,14 @@
       </template>
     </v-data-iterator>
   </v-container>
-    <!-- </v-app> -->
 </template>
 <script>
 import Dialog from "@/components/Dialog.vue"
 import DeleteButton from "@/components/DeleteButton.vue"
-  import {dbUsers} from "@/db"
-   import firebase from "firebase"
-  export default {
+import {dbUsers} from "@/db"
+import firebase from "firebase"
+
+export default {
     components:{
       Dialog,
       DeleteButton
@@ -139,16 +115,12 @@ import DeleteButton from "@/components/DeleteButton.vue"
     data () {
       return {
         user: firebase.auth().currentUser,
-        today:new Date(),
-        formValidate:false,
         morning:null,
         lunch:null,
         dinner:null,
         itemsPerPageArray: [7, 14, 31],
-        search: '',
         page: 1,
         itemsPerPage: 7,
-        sortBy: 'name',
         keys: [     
           'morning',
           'lunch',
@@ -175,6 +147,9 @@ import DeleteButton from "@/components/DeleteButton.vue"
       },
     },
     methods: {
+      log(){
+         console.log("ok");
+      },
       nextPage () {
         if (this.page + 1 <= this.numberOfPages) this.page += 1
       },
@@ -184,33 +159,7 @@ import DeleteButton from "@/components/DeleteButton.vue"
       updateItemsPerPage (number) {
         this.itemsPerPage = number
       },
-      async saveMenu({morning,lunch,dinner}){
-        if((morning||lunch||dinner)===null){
-          this.formValidate=true;
-          setTimeout(()=>{
-            this.formValidate=false;
-          },3000)
-          return
-          }
-        try{
-      const postData = {
-       morning,
-      lunch,
-      dinner,
-      date:firebase.firestore.FieldValue.serverTimestamp()
-    }
-    const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
-        const currentUserId = searchCurrentUser.docs[0].id
-        const menus = await dbUsers.doc(currentUserId).collection("menus")
-      await menus.add(postData);
-      this.fetchMenu();
-      this.morning=null
-      this.lunch=null
-      this.dinner=null
-        }catch(error){
-          alert(error.messege);
-        }
-      },
+
       async fetchMenu(){
         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id

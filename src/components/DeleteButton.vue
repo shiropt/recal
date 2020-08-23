@@ -56,7 +56,6 @@
        const updateDay = await dbUsers.doc(currentUserId).collection("menus").where('date','==',findDate.date).get()
        const id = updateDay.docs[0].id
        await dbUsers.doc(currentUserId).collection("menus").doc(id).delete()
-         this.$emit("fetchDelete")
 
       }
     }
