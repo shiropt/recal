@@ -36,16 +36,17 @@
         <v-row class="card-list">
           <v-col
             class="card"
-            v-for="item in props.items"
-            :key="item.name"
+            v-for="(item,index) in props.items"
+            :key="index"
           
           >
             <v-card>
               <v-card-title class="subheading font-weight-bold">{{item.date}}
                 <v-spacer></v-spacer>
-                <Dialog 
-                @updated="update(item.date)"
-                :setData="(item)"
+                <Dialog
+                :setData="item"
+                :saveData ="getUpdateIndex(index)"
+                btnTitle="編集"
                 />
                 <DeleteButton
                 :deleteDay="(item)"
@@ -210,28 +211,6 @@ import DeleteButton from "@/components/DeleteButton.vue"
           alert(error.messege);
         }
       },
-      async update(updateDate){
-          const stateMenus = this.fetchHoldMenu
-         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
-        const currentUserId = searchCurrentUser.docs[0].id
-          const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
-
-        const menus = await dbUserMenus.get()
-        const myMenu = menus.docs.map(doc => doc.data())
-        const findUpdateDate = myMenu.find(arr =>{
-          return arr.date.toDate().toLocaleDateString()===updateDate
-         })
-        const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
-        const id = upday.docs[0].id
-
-        await dbUserMenus.doc(id).update(
-          {morning:stateMenus.morning,
-          lunch:stateMenus.lunch,
-          dinner:stateMenus.dinner});
-           this.fetchMenu()
-        this.$store.commit("initialMenu");
-
-      },
       async fetchMenu(){
         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id
@@ -243,7 +222,36 @@ import DeleteButton from "@/components/DeleteButton.vue"
         })
 
         this.items= myMenu.reverse();    
-      }
+      },
+      getUpdateIndex(index){
+        return ()=>{
+          const updateDay = this.items[index].date
+          this.saveUpdateMenu(updateDay)
+        }
+     },
+     async saveUpdateMenu(updateDay){
+         const stateMenus = this.fetchHoldMenu
+         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
+        const currentUserId = searchCurrentUser.docs[0].id
+          const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
+
+        const menus = await dbUserMenus.get()
+        const myMenu = menus.docs.map(doc => doc.data())
+        const findUpdateDate = myMenu.find(arr =>{
+          return arr.date.toDate().toLocaleDateString()===updateDay
+         })
+        const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
+        const id = upday.docs[0].id
+        
+       await dbUserMenus.doc(id).update(
+          {morning:stateMenus.morning,
+          lunch:stateMenus.lunch,
+          dinner:stateMenus.dinner});
+           this.fetchMenu()
+           this.$store.commit("initialMenu");
+
+     },
+   
     },
    created(){
       this.fetchMenu();
