@@ -4,13 +4,13 @@
     :typing="seachRecipe"
     />
     <ul class="incliment-list">
-    <v-btn @click="post" v-if="recipeLists!==null">登録</v-btn>
+    <!-- <v-btn @click="post" v-if="recipeLists!==null">登録</v-btn> -->
     <template   v-for="(recipe,index) in recipeLists" >
       <li :key="index"
       :v-if="recipeLists!==null">
-      <input type="checkbox"
+      <!-- <input type="checkbox"
       :value="recipe.categoryName" 
-      v-model="addMenu">
+      v-model="addMenu"> -->
        <a :href="recipe.categoryUrl">
       {{recipe.categoryName}}
       </a>

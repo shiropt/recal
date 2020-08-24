@@ -222,7 +222,7 @@ export default {
   flex-direction: column;
 }
 .card{
-  width: 100%;
+  width: 70%;
 }
 .v-input{
   width: 200px;
@@ -231,13 +231,7 @@ export default {
   color: red;
   margin-left: 20px;
 }
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease-out;
-}
-
-.v-enter,
-.v-leave-to {
-    opacity: 0;
+.mt-2{
+  width: 70%;
 }
 </style>

@@ -1,29 +1,78 @@
 <template>
-  <table border="1" class="store-info">
-        <thead>
-          <th class="store-name">{{name}}</th>
-        </thead>
-        <div class="wrapper">
-    <div class="top-menu">
-      <img :src="shop_image1" class="img" alt="NoImage">
-      <p>ご予約はこちら</p>
-        <a :href="url_mobile" class="link">スマホから</a>
-        <a :href="url" class="link">パソコンから</a>
-    </div>
-      <div class="right-info">
-          <tr class="address"><th>住所</th><td>{{address}}</td></tr>
-          <tr class="holiday"><th>定休日</th><td>{{holiday}}</td></tr>
-          <tr class="time"><th>営業時間</th><td>{{opentime}}</td></tr>
-          <tr><th>TEL</th><td>{{tel}}</td></tr>
-        <tr><th>最寄駅</th><td>{{station}}から{{walk}}分</td></tr>
-      </div>
+  <v-card
+    class="mx-auto"
+    max-width="500"
+  >
+    <v-img
+      class="white--text align-end"
+      height="200px"
+      img :src="shop_image1"
+    >
+      <v-card-title><strong class="store-title">{{name}}</strong></v-card-title>
+    </v-img>
 
-           </div>
-  </table>
+    <v-card-subtitle class="pb-0">住所</v-card-subtitle>
+    <v-card-text class="text--primary">{{address}}</v-card-text>
+    <div class="info-wrapper">
+        <div>
+          <v-card-subtitle class="pb-0">定休日</v-card-subtitle>
+          <v-card-text class="text--primary">{{holiday}}</v-card-text>
+      </div>
+      <div>
+          <v-card-subtitle class="pb-0">TEL</v-card-subtitle>
+          <v-card-text class="text--primary">{{tel}}</v-card-text>
+      </div>
+    </div>
+
+    <v-card-subtitle class="pb-0">最寄駅</v-card-subtitle>
+    <v-card-text class="text--primary">{{station}}から{{walk}}分</v-card-text>
+    <v-card-actions>
+      <v-btn
+        color="orange"
+        text
+      >
+    <v-card-subtitle class="pb-0">ご予約はこちら</v-card-subtitle>
+        <a :href="url_mobile" class="link">スマホから</a>
+      </v-btn>
+
+      <v-btn
+        color="orange"
+        text
+      >
+       <a :href="url" class="link">パソコンから</a>
+      </v-btn>
+       <v-btn
+        icon
+        @click="show = !show"
+      >
+        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+      </v-btn>
+    </v-card-actions>
+    <v-expand-transition>
+      <div v-show="show">
+        <v-divider></v-divider>
+
+    <v-card-subtitle class="pb-0">営業時間</v-card-subtitle>
+        <v-card-text>{{opentime}}</v-card-text>
+    <v-card-subtitle class="pb-0">予算</v-card-subtitle>
+        <v-card-text>{{budget}}</v-card-text>
+    <v-card-subtitle class="pb-0">お店の特徴</v-card-subtitle>
+        <v-card-text>{{pr}}</v-card-text>
+      </div>
+    </v-expand-transition>
+    
+    
+  </v-card>
 </template>
+
 
 <script>
 export default {
+  data(){
+    return{
+      show:false
+    }
+  },
   props:{
     shop_image1:{
       type:String,
@@ -64,6 +113,14 @@ export default {
     url_mobile:{
       type:String,
       required:true
+    },
+    budget:{
+      type:Number,
+      required:true
+    },
+    pr:{
+      type:String,
+      required:true
     }
   }
 
@@ -71,37 +128,23 @@ export default {
 </script>
 
 <style scoped>
-.store-info{
-  width: 650px;
-  height: 250px;
+.store-title{
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+
 }
-.wrapper{
-  display: flex;
+.v-image{
+  background: gray;
 }
-.store-name{
+.v-card__title{
   font-size: 24px;
 }
-th{
-  width: 40px;
+.v-card__subtitle{
+  padding: 0px;
 }
-.img{
-  max-width: 200px;
-  min-height: 150px;
-  background: rgb(235, 232, 229);
-  font-size: 32px;
+.info-wrapper{
+display: flex;
 }
-.address{
-  height: 50px;
-}
-.holiday{
-  height: 80px;
-}
-.time{
-  height: 140px;
-}
-.right-info{
-  min-width: 440px;
-}
+
 .link{
     position: relative;
   display: inline-block;

@@ -1,6 +1,7 @@
 <template>
 <div class="wrapper">
   <div class="left">
+  <div class="btn-wrapper">
   <v-btn color="orange" class="mr-4">
    <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="button">レシピを見る</router-link>
   </v-btn>
@@ -10,8 +11,10 @@
   <Dialog
   btnTitle="記録する"
    :saveData ="saveMenu"
+   class="post-btn"
   />
-   <hr>
+
+  </div>
    <router-view></router-view>
   </div>
   <div class="right">
@@ -82,8 +85,13 @@ created(){
 a{
   text-decoration: none;
 }
+.post-btn{
+  display: inline-block;
+  margin-left: 8px;
+}
 .left{
   width: 50%;
+  margin-left: 80px;
 }
 .right{
   width: 50%;
@@ -91,10 +99,13 @@ a{
 .wrapper{
   margin: 0 auto; 
   padding-top: 20px;
-  padding-left:40px;
   display: flex;
   width: 100%;
-  height: 100vh;
+}
+.btn-wrapper{
+  text-align: center;
+  margin-top: 30px;
+
 }
 
 </style>
