@@ -3,9 +3,8 @@
    <v-toolbar-title>
       <router-link to="/search" class="title" tag="h1" >Recal</router-link>
    </v-toolbar-title>
-   <v-spacer></v-spacer>
-   <v-btn v-if="this.$store.state.user.authState" @click="logout">Logout</v-btn>
-   <v-spacer></v-spacer>
+   <div class="flex-grow-1"></div>
+   <v-btn outlined v-if="this.$store.state.user.authState" class="login" @click="logout">Logout</v-btn>
   </v-toolbar>
 </template>
 <script>
@@ -21,8 +20,15 @@ export default {
       }catch(error){
          alert(error.message);
       }
-      
     }
    }
 }
 </script>
+<style scoped>
+.title{
+margin-left: 100px;
+}
+.login{
+   margin-right: 70px;
+}
+</style>
