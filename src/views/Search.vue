@@ -23,9 +23,9 @@
 
 <script>
 import Dialog from "@/components/Dialog.vue"
- import List from "@/components/List.vue"
-  import {dbUsers} from "@/db"
-   import firebase from "firebase"
+import List from "@/components/List.vue"
+import {dbUsers} from "@/db"
+import firebase from "firebase"
 export default {
 
 components:{
@@ -35,16 +35,35 @@ components:{
 data(){
   return{
     user: firebase.auth().currentUser,
+    today:null
   }
 },
 methods:{
+  getToday(){
+    const date = new Date()
+    const y = date.getFullYear()
+    const m = date.getMonth()
+    const d = date.getDate()
+    const today = `${y}/${m+1}/${d}`
+    this.today = today
+
+  },
  async saveMenu(inputedMenus){
    try{
      inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
- 
      const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
      const currentUserId = searchCurrentUser.docs[0].id
      const menus = await dbUsers.doc(currentUserId).collection("menus")
+     this.getToday()
+
+     const day = this.$store.state.everydayMenu
+      const date = day.filter(d => {
+        return d.date ===this.today
+      });
+      if(date.length===1){
+           alert("今日は投稿済です。追加をする場合は編集をしてください")
+           return
+      }
      await menus.add(inputedMenus);
      this.$store.dispatch("fetchMenu")
    }catch(error){

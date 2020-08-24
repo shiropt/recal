@@ -28,13 +28,18 @@
               <v-col cols="12">
                 <v-text-field label="dinner*" v-model="dinner" ></v-text-field>
               </v-col>
+              <div class="validMessage">
+                <p>1つ以上の入力が必要です</p>
+                <p v-if="formCheck" class="alartMessage">入力してください</p>
+              </div>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="clickSave">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="closeForm">Close</v-btn>
+          <v-btn color="blue darken-1"
+           text @click="clickSave">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -61,13 +66,17 @@
         lunch:null,
         dinner:null,
         dialog: false,
+        formCheck:false
       }
     },
+
+   
     methods:{
       onClick(){
         if(this.setData !==undefined){
           this.setAlreadyMenu()
         }
+
       },
       setAlreadyMenu(){
         const editMenu = this.setData
@@ -82,15 +91,40 @@
            lunch: this.lunch ,
            dinner: this.dinner 
            };
+           if(Object.values(payload).every(value => value ===null)){
+             this.formValidation()
+             return
+           }
         this.$store.commit("holdMenu",payload);
         this.saveData(payload)
         this.dialog = false
         this.morning=null,
         this.lunch=null,
         this.dinner=null
+        this.formCheck=false
       },
+      formValidation(){
+        this.formCheck=true
+      },
+      closeForm(){
+        this.dialog=false
+        this.formCheck=false
+      }
 
-    }
+    },
+   
+    
+    
    
   }
 </script>
+<style>
+.validMessage{
+  display: flex;
+}
+.alartMessage{
+  color: red;
+  margin-left: 40px;
+}
+
+</style>
