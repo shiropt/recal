@@ -11,7 +11,7 @@
       <!-- <input type="checkbox"
       :value="recipe.categoryName" 
       v-model="addMenu"> -->
-       <a :href="recipe.categoryUrl">
+       <a :href="recipe.categoryUrl" target="_blank">
       {{recipe.categoryName}}
       </a>
       
@@ -40,19 +40,12 @@ export default {
     try{
       const menuRes = await axios.get('https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?format=json&formatVersion=1&applicationId=1019675112210690221')
 
-      this.bindingCategory(menuRes.data.result)
+      this.menuInfo=menuRes.data.result.small
     }catch(error){
       alert(error.message)
     }
   },
   methods:{
-    bindingCategory(result){
-     const large = result.large;
-     const medium = result.medium;
-     const small = result.small;
-     const allCategories = [...large,...medium,...small];
-     this.menuInfo=allCategories;
-   },
    seachRecipe(input){
      const hitRecipe = this.menuInfo.filter(menuList =>{
        if(input===""){

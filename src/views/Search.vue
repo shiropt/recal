@@ -16,6 +16,7 @@
 
   </div>
    <router-view></router-view>
+   <Rank />
   </div>
   <div class="right">
    <List class="list"/>
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+
+import Rank from "@/components/Rank.vue"
 import Dialog from "@/components/Dialog.vue"
 import List from "@/components/List.vue"
 import {dbUsers} from "@/db"
@@ -33,8 +36,9 @@ export default {
 
 components:{
   Dialog,
-  List
-},
+  List,
+  Rank
+  },
 data(){
   return{
     user: firebase.auth().currentUser,
@@ -77,7 +81,8 @@ methods:{
 },
 created(){
   this.$store.dispatch("fetchMenu")
-}
+},
+
 }
 </script>
 
@@ -95,16 +100,23 @@ a{
 }
 .right{
   width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 20px;
+  right: -150px;
 }
 .wrapper{
+  position: relative;
   margin: 0 auto; 
   padding-top: 20px;
   display: flex;
   width: 100%;
+  height: 100%;
 }
 .btn-wrapper{
   text-align: center;
   margin-top: 30px;
+  text-align-last: left;
 
 }
 
