@@ -100,4 +100,16 @@ import {dbUsers} from "@/db"
   width: 90%;
   margin: 0 auto;
 }
+h1 {
+  position: relative;
+  padding: 0.25em 0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+}
+h1:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
 </style>

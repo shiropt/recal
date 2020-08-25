@@ -16,7 +16,7 @@
 
   </div>
    <router-view></router-view>
-   <Rank />
+   <Rank v-if="searchTop"/>
   </div>
   <div class="right">
    <List class="list"/>
@@ -42,10 +42,19 @@ components:{
 data(){
   return{
     user: firebase.auth().currentUser,
-    today:null
+    today:null,
+    searchTop:true
   }
 },
 methods:{
+  createSearchTop(){
+    if(this.$route.path==="/search"){
+          this.searchTop=true;
+        }else{
+          this.searchTop=false;
+        }
+
+  },
   getToday(){
     const date = new Date()
     const y = date.getFullYear()
@@ -82,6 +91,9 @@ methods:{
 created(){
   this.$store.dispatch("fetchMenu")
 },
+watch:{
+      '$route': 'createSearchTop'
+    }
 
 }
 </script>
