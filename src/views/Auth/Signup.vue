@@ -13,8 +13,8 @@
     ></v-text-field>
 
     <v-text-field
+    placeholder="パスワードは半角英数字6文字以上必要です"
       v-model="password"
-      :counter="6"
       :rules="passwordRules"
       label="Password"
       required
@@ -36,6 +36,7 @@
     >
       Reset Form
     </v-btn>
+    <p>{{errorMessage}}</p>
    
  
   </v-form>
@@ -50,13 +51,15 @@ import {dbUsers} from "@/db"
       password: '',
       passwordRules: [
         v => !!v || 'Password is required',
-        v => (v && v.length >= 6) 
+        v => (v && v.length >= 6) ,
+        v => /^[A-Za-z0-9]*$/.test(v)
       ],
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
+      errorMessage:null
     
     }),
 
@@ -69,14 +72,15 @@ import {dbUsers} from "@/db"
       },
 
       async signUp() {
+          this.$store.commit("loading");
         try{
           await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           this.$store.commit("authStateChanged")
           this.addUser()
           this.$router.push('/search')
-          alert("登録ありがとうございます！")
         }catch(error){
-          alert(error.message)
+          this.$store.commit("loaded");
+          this.errorMessage=error.message
         }
       },
       async addUser(){
@@ -99,5 +103,20 @@ import {dbUsers} from "@/db"
 .v-form{
   width: 90%;
   margin: 0 auto;
+}
+h1 {
+  position: relative;
+  padding: 0.25em 0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+}
+h1:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
+p{
+  color: red;
 }
 </style>

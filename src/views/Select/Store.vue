@@ -9,9 +9,9 @@
     <li class="store-list"
     :key="index">
 
-     <input type="checkbox"
+     <!-- <input type="checkbox"
       :value="store.name" 
-      v-model="addStore">
+      v-model="addStore"> -->
        <StoreInfo
        :shop_image1= store.image_url.shop_image1
        :name= store.name
@@ -23,6 +23,8 @@
        :walk= store.access.walk
        :url= store.url
        :url_mobile= store.url_mobile
+       :budget= store.budget
+       :pr = store.pr.pr_short
         />
       </li>
     </template>
@@ -88,12 +90,9 @@ export default {
   width: 700px;
   margin: 0 auto;
 }
-.store-lists{
-  display: flex;
-  flex-wrap: wrap;
-}
-.store-list{
-  margin: 15px;
+li{
+  list-style: none;
+  margin-bottom: 15px;
 }
 </style>
 

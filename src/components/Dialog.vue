@@ -3,18 +3,18 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="primary"
+          color="success"
           dark
           v-bind="attrs"
           v-on="on"
-          @click="setAlreadyMenu"
+          @click="onClick"
         >
-          Edit
+        {{btnTitle}}
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Edit Menu</span>
+          <span class="headline">{{btnTitle}}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -28,13 +28,18 @@
               <v-col cols="12">
                 <v-text-field label="dinner*" v-model="dinner" ></v-text-field>
               </v-col>
+              <div class="validMessage">
+                <p>1つ以上の入力が必要です</p>
+                <p v-if="formCheck" class="alartMessage">入力してください</p>
+              </div>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="upDate(); dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="closeForm">Close</v-btn>
+          <v-btn color="blue darken-1"
+           text @click="clickSave">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -43,35 +48,83 @@
 <script>
   export default {
     props:{
+      btnTitle:{
+        type:String,
+        required:true
+      },
+      saveData:{
+        type:Function
+
+      },
       setData:{
-        type:Object
-      },
-      
+      type:Object
+      }
     },
-    data: () => ({
-      dialog: false,
-      morning:null,
-      lunch:null,
-      dinner:null
-    }),
+    data() {
+      return{
+        morning:null,
+        lunch:null,
+        dinner:null,
+        dialog: false,
+        formCheck:false
+      }
+    },
+
+   
     methods:{
-       setAlreadyMenu(){
-        this.morning=this.setData.morning
-        this.lunch=this.setData.lunch
-        this.dinner=this.setData.dinner
+      onClick(){
+        if(this.setData !==undefined){
+          this.setAlreadyMenu()
+        }
+
       },
-      upDate(){
-        const payload = 
-           { morning: this.morning ,
+      setAlreadyMenu(){
+        const editMenu = this.setData
+        this.morning=editMenu.morning
+        this.lunch=editMenu.lunch
+        this.dinner=editMenu.dinner
+      
+      },
+     clickSave(){
+         const payload = {
+           morning: this.morning ,
            lunch: this.lunch ,
-            dinner: this.dinner };
+           dinner: this.dinner 
+           };
+           if(Object.values(payload).every(value => value ===null)){
+             this.formValidation()
+             return
+           }
         this.$store.commit("holdMenu",payload);
-        this.$emit("updated")
+        this.saveData(payload)
+        this.dialog = false
         this.morning=null,
         this.lunch=null,
         this.dinner=null
+        this.formCheck=false
+      },
+      formValidation(){
+        this.formCheck=true
+      },
+      closeForm(){
+        this.dialog=false
+        this.formCheck=false
       }
-    }
+
+    },
+   
+    
+    
    
   }
 </script>
+<style scoped>
+.validMessage{
+  display: flex;
+}
+.alartMessage{
+  color: red;
+  margin-left: 40px;
+}
+
+</style>

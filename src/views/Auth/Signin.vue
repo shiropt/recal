@@ -14,7 +14,6 @@
 
     <v-text-field
       v-model="password"
-      :counter="6"
       :rules="passwordRules"
       label="Password"
       required
@@ -36,6 +35,7 @@
     >
       Reset Form
     </v-btn>
+    <p>{{errorMessage}}</p>
   </v-form>
 
 </template>
@@ -46,14 +46,15 @@ import firebase from 'firebase'
       valid: true,
       password: '',
       passwordRules: [
+        v => /^[A-Za-z0-9]*$/.test(v),
         v => !!v || 'Password is required',
-        v => (v && v.length <= 6) || 'Password must be less than 6 characters',
       ],
       email: '',
       emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
+      errorMessage:null
     
     }),
 
@@ -65,13 +66,14 @@ import firebase from 'firebase'
         this.$refs.form.reset()
       },
       async signIn(){
+        this.$store.commit("loading");
         try{
           await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
           this.$store.commit("authStateChanged")
          this.$router.push('/search')
-         alert("ログインしました！")
         }catch(error){
-          alert(error.message)
+          this.errorMessage=error.message
+          this.$store.commit("loaded");
         }
       }
     },
@@ -82,5 +84,20 @@ import firebase from 'firebase'
 .v-form{
   width: 90%;
   margin: 0 auto;
+}
+h1 {
+  position: relative;
+  padding: 0.25em 0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+}
+h1:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
+p{
+  color: red;
 }
 </style>

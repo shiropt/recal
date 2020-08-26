@@ -1,51 +1,28 @@
 <template>
-<!-- <v-app> -->
   <v-container fluid>
     <v-data-iterator
       :items="items"
       :items-per-page.sync="itemsPerPage"
       :page="page"
-      :search="search"
       hide-default-footer
     >
       <template v-slot:default="props">
-        <v-form>
-          <v-text-field 
-          label="morning"
-          v-model="morning"
-          ></v-text-field>
-          <v-text-field 
-          label="lunch"
-          v-model="lunch"
-          ></v-text-field>
-          <v-text-field 
-          label="dinner"
-          v-model="dinner"
-          ></v-text-field>
-        <div class="form_wrapper">
-          <v-btn
-            @click="saveMenu({morning,lunch,dinner})"
-          >送信
-          </v-btn>
-         <transition>
-          <p v-if="formValidate" class="alart">入力してください</p>
-        </transition>
-        </div>
-        </v-form>
 
         <v-row class="card-list">
+          <transition-group name="list">
           <v-col
             class="card"
-            v-for="item in props.items"
-            :key="item.name"
+            v-for="(item,index) in props.items"
+            :key="index"
           
           >
             <v-card>
               <v-card-title class="subheading font-weight-bold">{{item.date}}
                 <v-spacer></v-spacer>
-                <Dialog 
-                @updated="update(item.date)"
-                :setData="(item)"
+                <Dialog
+                :setData="item"
+                :saveData ="getUpdateIndex(index)"
+                btnTitle="編集"
                 />
                 <DeleteButton
                 :deleteDay="(item)"
@@ -63,8 +40,10 @@
               </v-list>
             </v-card>
           </v-col>
+      </transition-group>
         </v-row>
       </template>
+
 
       <template v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
@@ -123,14 +102,14 @@
       </template>
     </v-data-iterator>
   </v-container>
-    <!-- </v-app> -->
 </template>
 <script>
 import Dialog from "@/components/Dialog.vue"
 import DeleteButton from "@/components/DeleteButton.vue"
-  import {dbUsers} from "@/db"
-   import firebase from "firebase"
-  export default {
+import {dbUsers} from "@/db"
+import firebase from "firebase"
+
+export default {
     components:{
       Dialog,
       DeleteButton
@@ -138,16 +117,12 @@ import DeleteButton from "@/components/DeleteButton.vue"
     data () {
       return {
         user: firebase.auth().currentUser,
-        today:new Date(),
-        formValidate:false,
         morning:null,
         lunch:null,
         dinner:null,
         itemsPerPageArray: [7, 14, 31],
-        search: '',
         page: 1,
         itemsPerPage: 7,
-        sortBy: 'name',
         keys: [     
           'morning',
           'lunch',
@@ -160,6 +135,8 @@ import DeleteButton from "@/components/DeleteButton.vue"
             dinner: null,
           },
         ],
+        everydayMenu:this.$store.state.everydayMenu
+
       }
     },
     computed: {
@@ -183,58 +160,12 @@ import DeleteButton from "@/components/DeleteButton.vue"
       updateItemsPerPage (number) {
         this.itemsPerPage = number
       },
-      async saveMenu({morning,lunch,dinner}){
-        if((morning||lunch||dinner)===null){
-          this.formValidate=true;
-          setTimeout(()=>{
-            this.formValidate=false;
-          },3000)
-          return
-          }
-        try{
-      const postData = {
-       morning,
-      lunch,
-      dinner,
-      date:firebase.firestore.FieldValue.serverTimestamp()
-    }
-    const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
-        const currentUserId = searchCurrentUser.docs[0].id
-        const menus = await dbUsers.doc(currentUserId).collection("menus")
-      await menus.add(postData);
-      this.fetchMenu();
-      this.morning=null
-      this.lunch=null
-      this.dinner=null
-        }catch(error){
-          alert(error.messege);
-        }
-      },
-      async update(updateDate){
-          const stateMenus = this.fetchHoldMenu
-         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
-        const currentUserId = searchCurrentUser.docs[0].id
-          const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
 
-        const menus = await dbUserMenus.get()
-        const myMenu = menus.docs.map(doc => doc.data())
-        const findUpdateDate = myMenu.find(arr =>{
-          return arr.date.toDate().toLocaleDateString()===updateDate
-         })
-        const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
-        const id = upday.docs[0].id
-
-        await dbUserMenus.doc(id).update(
-          {morning:stateMenus.morning,
-          lunch:stateMenus.lunch,
-          dinner:stateMenus.dinner});
-           this.fetchMenu()
-        this.$store.commit("initialMenu");
-
-      },
       async fetchMenu(){
+        
         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id
+
         const menus = await dbUsers.doc(currentUserId).collection("menus").orderBy('date').get()
         const myMenu = menus.docs.map(doc => doc.data())
 
@@ -243,15 +174,75 @@ import DeleteButton from "@/components/DeleteButton.vue"
         })
 
         this.items= myMenu.reverse();    
-      }
+      },
+      getUpdateIndex(index){
+        return ()=>{
+          const updateDay = this.items[index].date
+          this.saveUpdateMenu(updateDay)
+        }
+     },
+     async saveUpdateMenu(updateDay){
+       const stateMenus = this.fetchHoldMenu
+         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
+        const currentUserId = searchCurrentUser.docs[0].id
+          const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
+
+        const menus = await dbUserMenus.get()
+        const myMenu = menus.docs.map(doc => doc.data())
+        const findUpdateDate = myMenu.find(arr =>{
+          return arr.date.toDate().toLocaleDateString()===updateDay
+         })
+       this.$store.commit("loading");
+
+        const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
+        const id = upday.docs[0].id
+        
+       await dbUserMenus.doc(id).update(
+          {morning:stateMenus.morning,
+          lunch:stateMenus.lunch,
+          dinner:stateMenus.dinner});
+           this.fetchMenu()
+           this.$store.commit("initialMenu");
+
+     },
+   
     },
    created(){
       this.fetchMenu();
-  }
+      this.$store.dispatch("fetchMenu")
+  },
+  // beforeUpdate(){
+  //  this.$store.commit("loading");
+  //  console.log("loading");
+
+  //   //  this.$store.commit("loaded");
+  // },
+
+  updated(){
+    this.$store.commit("loaded");
+  },
+  watch:{
+      '$store.state.everydayMenu': 'fetchMenu'
+    }
   };
 </script>
 
 <style scoped>
+.list-move{
+  transition: 1s;
+}
+.list-enter-active {
+  transition: opacity 1s;
+}
+
+.list-enter{
+  opacity: 0;
+}
+.list-leave{
+  opacity: 0;
+}
+
+
 .form_wrapper{
   display: flex;
 }
@@ -260,7 +251,7 @@ import DeleteButton from "@/components/DeleteButton.vue"
   flex-direction: column;
 }
 .card{
-  width: 100%;
+  width: 70%;
 }
 .v-input{
   width: 200px;
@@ -269,13 +260,8 @@ import DeleteButton from "@/components/DeleteButton.vue"
   color: red;
   margin-left: 20px;
 }
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease-out;
+.mt-2{
+  width: 70%;
 }
 
-.v-enter,
-.v-leave-to {
-    opacity: 0;
-}
 </style>

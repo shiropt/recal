@@ -17,10 +17,10 @@ Vue.use(VueRouter)
       component: Authentication,
       // beforeEnter(to, from, next) {
       //   const user = firebase.auth().currentUser;
-      //   if (user) {
-      //     next('/search');
+      //   if (!user) {
+      //     next('/');
       //   } else {
-      //     next("/");
+      //     next("/search");
       //   }
       // },
       children: [

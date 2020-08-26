@@ -1,10 +1,10 @@
 <template>
   <v-row justify="center">
     <v-btn
-      color="primary"
+      color="error"
       dark
       @click.stop="dialog = true"
-    > Delete</v-btn>
+    > 削除</v-btn>
     <v-dialog
       v-model="dialog"
       max-width="290"
@@ -45,6 +45,7 @@
     },
     methods:{
      async deleteMenu(){
+       this.$store.commit("loading");
        const user = firebase.auth().currentUser
         const searchCurrentUser = await dbUsers.where("userId","==",user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id
@@ -57,6 +58,7 @@
        const id = updateDay.docs[0].id
        await dbUsers.doc(currentUserId).collection("menus").doc(id).delete()
          this.$emit("fetchDelete")
+         this.$store.dispatch("fetchMenu")
 
       }
     }

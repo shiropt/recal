@@ -10,21 +10,43 @@
         color="success"
         class="mr-4"
         >
-           <router-link :to="{name: 'Signup', params:{id:$route.params.id} }" tag="button">新規登録</router-link>
+           <router-link :to="{name: 'Signup', params:{id:$route.params.id} }" tag="a">新規登録</router-link>
         </v-btn><br>
         <v-btn
         color="warning"
         >
-          <router-link :to="{name: 'Signin', params:{id:$route.params.id} }" tag="button">ログイン</router-link>
+          <router-link :to="{name: 'Signin', params:{id:$route.params.id} }" tag="a">ログイン</router-link>
           </v-btn>
        </div>
 
     
        <div class="main">
+         <transition name="auth">
          <router-view></router-view>
-           <div v-if="initialAccess" class="test">
-             <h1>test</h1>
+         </transition>
+       <transition name="fade">
+           <div v-if="initialAccess">
+             <div class="title">
+             <h1>Recalで出来る事</h1>
+             </div>
+             <ul>
+               <li>
+                 <h2>日々の食事の管理</h2>
+                 <p>毎日の食事を記録して栄養のバランスを考えよう！</p>
+               </li>
+               <li>
+                 <h2>献立を考える手助けをします</h2>
+                 <p>毎日献立を考えるのは大変...</p>
+                 <p>ピックアップメニューやレシピ検索を参考にしよう！</p>
+               </li>
+               <li>
+                 <h2>外食もありかな？</h2>
+                 <p>外食先もRecalで検索して探そう！</p>
+               </li>
+             </ul>
+             <h2>是非Recalを活用して毎日の食事を楽しんでください！</h2>
            </div>
+         </transition>
         
        </div>
  </div>
@@ -50,25 +72,72 @@
   }
 </script>
 <style scoped>
+.fade-enter-active {
+  transition: opacity 2s;
+}
+
+.fade-enter{
+  opacity: 0;
+}
+.fade-leave{
+  opacity: 0;
+}
+
+.auth-enter-active {
+  transition: opacity 1s;
+}
+.auth-enter {
+  opacity: 0;
+}
+
+ .title {
+  position: relative;
+  padding: 0.25em 0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+}
+.title:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
 .container{
   display: flex;
   width: 100%;
-  height: 100vh;
 }
 .side-bar{
   height: 100%;
   width: 40%;
 }
+
 .v-btn{
   margin-top: 38px;
+  padding: 0px;
+  
 }
+
+
+a {
+  line-height: 32px;
+  display: block;
+  width: 100px;
+  height: 32px;
+  text-decoration: none;
+
+}
+.v-application a{
+  color: white;
+
+}
+
 .main{
   width: 100%;
   height: 100%;
 }
-.test{
-  background: rgb(241, 203, 31);
-  height: 100%;
-}
 
+li{
+
+list-style: none;
+}
 </style>
