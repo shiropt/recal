@@ -45,6 +45,7 @@
     },
     methods:{
      async deleteMenu(){
+       this.$store.commit("loading");
        const user = firebase.auth().currentUser
         const searchCurrentUser = await dbUsers.where("userId","==",user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id

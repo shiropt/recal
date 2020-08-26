@@ -9,6 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    loading:false,
     menus: {
        morning: null ,
        lunch: null ,
@@ -25,12 +26,16 @@ export default new Vuex.Store({
         dinner: null,
         date:null
       }
-      
-
     ]
     
   },
   mutations: {
+    loading(state) {
+      state.loading=true
+    },
+    loaded(state) {
+      state.loading=false
+    },
   
     holdMenu(state, payload) {
       state.menus = payload
@@ -48,6 +53,7 @@ export default new Vuex.Store({
       state.user.authState = false
     },
     fetchEverydayMenu(state, myMenu) {
+      state.loading=false
       state.everydayMenu=myMenu      
     }
   },
