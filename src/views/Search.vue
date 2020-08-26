@@ -3,10 +3,10 @@
   <div class="left">
   <div class="btn-wrapper">
   <v-btn color="orange" class="mr-4">
-   <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="button">レシピを見る</router-link>
+   <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="a">レシピを見る</router-link>
   </v-btn>
   <v-btn color="error" class="mr-4">
-   <router-link :to="{name: 'Store', params:{id:$route.params.id}}" tag="button">外食する</router-link>
+   <router-link :to="{name: 'Store', params:{id:$route.params.id}}" tag="a">外食する</router-link>
   </v-btn>
   <Dialog
   btnTitle="記録する"
@@ -15,7 +15,9 @@
   />
 
   </div>
-   <router-view></router-view>
+    <transition name="search">
+     <router-view></router-view>
+    </transition>
    <Rank v-if="searchTop"/>
   </div>
   <div class="right">
@@ -70,6 +72,7 @@ methods:{
      const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
      const currentUserId = searchCurrentUser.docs[0].id
      const menus = await dbUsers.doc(currentUserId).collection("menus")
+     this.$store.commit("loading");
      this.getToday()
 
      const day = this.$store.state.everydayMenu
@@ -77,7 +80,8 @@ methods:{
         return d.date ===this.today
       });
       if(date.length===1){
-           alert("今日は投稿済です。追加をする場合は編集をしてください")
+        this.$store.commit("loaded");
+        alert("今日は投稿済です。追加をする場合は編集をしてください")
            return
       }
      await menus.add(inputedMenus);
@@ -98,9 +102,27 @@ watch:{
 }
 </script>
 
-<style>
+<style scoped>
+.search-enter-active {
+  transition: opacity 1s;
+}
+
+.search-enter{
+  opacity: 0;
+}
+.search-leave{
+  opacity: 0;
+}
 a{
+  line-height: 32px;
+  display: block;
+  height: 32px;
   text-decoration: none;
+}
+.v-application a{
+  display: block;
+  color: white;
+
 }
 .post-btn{
   display: inline-block;

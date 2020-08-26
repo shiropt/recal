@@ -50,6 +50,9 @@ async mounted () {
 </script>
 
 <style scoped>
+a{
+  text-decoration: none;
+}
 h2 {
   position: relative;
   padding: 0.25em 0;

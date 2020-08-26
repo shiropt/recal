@@ -10,18 +10,21 @@
         color="success"
         class="mr-4"
         >
-           <router-link :to="{name: 'Signup', params:{id:$route.params.id} }" tag="button">新規登録</router-link>
+           <router-link :to="{name: 'Signup', params:{id:$route.params.id} }" tag="a">新規登録</router-link>
         </v-btn><br>
         <v-btn
         color="warning"
         >
-          <router-link :to="{name: 'Signin', params:{id:$route.params.id} }" tag="button">ログイン</router-link>
+          <router-link :to="{name: 'Signin', params:{id:$route.params.id} }" tag="a">ログイン</router-link>
           </v-btn>
        </div>
 
     
        <div class="main">
+         <transition name="auth">
          <router-view></router-view>
+         </transition>
+       <transition name="fade">
            <div v-if="initialAccess">
              <div class="title">
              <h1>Recalで出来る事</h1>
@@ -43,6 +46,7 @@
              </ul>
              <h2>是非Recalを活用して毎日の食事を楽しんでください！</h2>
            </div>
+         </transition>
         
        </div>
  </div>
@@ -68,6 +72,24 @@
   }
 </script>
 <style scoped>
+.fade-enter-active {
+  transition: opacity 2s;
+}
+
+.fade-enter{
+  opacity: 0;
+}
+.fade-leave{
+  opacity: 0;
+}
+
+.auth-enter-active {
+  transition: opacity 1s;
+}
+.auth-enter {
+  opacity: 0;
+}
+
  .title {
   position: relative;
   padding: 0.25em 0;
@@ -83,22 +105,37 @@
 .container{
   display: flex;
   width: 100%;
-  height: 100vh;
 }
 .side-bar{
   height: 100%;
   width: 40%;
 }
+
 .v-btn{
   margin-top: 38px;
+  padding: 0px;
+  
 }
+
+
+a {
+  line-height: 32px;
+  display: block;
+  width: 100px;
+  height: 32px;
+  text-decoration: none;
+
+}
+.v-application a{
+  color: white;
+
+}
+
 .main{
   width: 100%;
   height: 100%;
 }
-.test{
-  height: 100%;
-}
+
 li{
 
 list-style: none;

@@ -9,6 +9,7 @@
       <template v-slot:default="props">
 
         <v-row class="card-list">
+          <transition-group name="list">
           <v-col
             class="card"
             v-for="(item,index) in props.items"
@@ -39,8 +40,10 @@
               </v-list>
             </v-card>
           </v-col>
+      </transition-group>
         </v-row>
       </template>
+
 
       <template v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
@@ -159,6 +162,7 @@ export default {
       },
 
       async fetchMenu(){
+        
         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id
 
@@ -178,7 +182,7 @@ export default {
         }
      },
      async saveUpdateMenu(updateDay){
-         const stateMenus = this.fetchHoldMenu
+       const stateMenus = this.fetchHoldMenu
          const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
         const currentUserId = searchCurrentUser.docs[0].id
           const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
@@ -188,6 +192,8 @@ export default {
         const findUpdateDate = myMenu.find(arr =>{
           return arr.date.toDate().toLocaleDateString()===updateDay
          })
+       this.$store.commit("loading");
+
         const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
         const id = upday.docs[0].id
         
@@ -199,13 +205,21 @@ export default {
            this.$store.commit("initialMenu");
 
      },
-     watchTest(){
-       console.log("watch!");
-     }
    
     },
    created(){
       this.fetchMenu();
+      this.$store.dispatch("fetchMenu")
+  },
+  // beforeUpdate(){
+  //  this.$store.commit("loading");
+  //  console.log("loading");
+
+  //   //  this.$store.commit("loaded");
+  // },
+
+  updated(){
+    this.$store.commit("loaded");
   },
   watch:{
       '$store.state.everydayMenu': 'fetchMenu'
@@ -214,6 +228,21 @@ export default {
 </script>
 
 <style scoped>
+.list-move{
+  transition: 1s;
+}
+.list-enter-active {
+  transition: opacity 1s;
+}
+
+.list-enter{
+  opacity: 0;
+}
+.list-leave{
+  opacity: 0;
+}
+
+
 .form_wrapper{
   display: flex;
 }
@@ -234,4 +263,5 @@ export default {
 .mt-2{
   width: 70%;
 }
+
 </style>
