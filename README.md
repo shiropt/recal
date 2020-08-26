@@ -1,4 +1,4 @@
-# プロジェクト名
+## プロジェクト名
 Recal
  
 ## 概要
@@ -76,5 +76,5 @@ password: testpass
  
 
 # ライセンス
-GitHub https://github.com/shiropt/recal.git
-URL https://recal-f1a64.web.app/#/
+* GitHub https://github.com/shiropt/recal.git
+* URL https://recal-f1a64.web.app
