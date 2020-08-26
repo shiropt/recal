@@ -26,7 +26,7 @@ export default {
   components:{
     Header,
     Loading
-  }
+  },
   }
 </script>
 

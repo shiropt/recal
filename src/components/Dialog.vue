@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="success"
+          :color= color
           dark
           v-bind="attrs"
           v-on="on"
@@ -48,6 +48,12 @@
 <script>
   export default {
     props:{
+      color:{
+        type:String,
+        default:"success"
+
+
+      },
       btnTitle:{
         type:String,
         required:true

@@ -66,8 +66,10 @@ h2:after {
   background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
 }
 .title{
-  margin-top: 50px;
   margin-bottom: 30px;
+  width: 80%;
+  padding: 0px;
+  margin-left: 50px;
 }
 .recipe-title{
   text-decoration: none;

@@ -17,6 +17,7 @@ export default new Vuex.Store({
     },
     user: {
       authState: false,
+      currentUserId:null
       
     },
     everydayMenu: [
@@ -47,6 +48,8 @@ export default new Vuex.Store({
         dinner: null }
     },
     authStateChanged(state) {
+      const userId = firebase.auth().currentUser
+      state.user.currentUserId = userId
       state.user.authState = true
     },
     authState(state) {
