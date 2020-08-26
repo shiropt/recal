@@ -40,7 +40,7 @@ has_many :menus
 belongs_to :user
 
  
-# 使い方
+## 使い方
 * 新規登録
 アプリにアクセスすると登録画面が表示されるので新規登録ボタンを押下してフォームにemailとpasswordを登録します。
 * ログイン
@@ -70,11 +70,11 @@ belongs_to :user
  ヘッダー右のログアウトボタンはログイン状態で表示され押すとログアウトし、トップページへリダイレクトされます。
 
  
-# テスト用アカウント
+## テスト用アカウント
 email:    recal@test.ne.jp
 password: testpass
  
 
-# ライセンス
+## ライセンス
 * GitHub https://github.com/shiropt/recal.git
 * URL https://recal-f1a64.web.app
