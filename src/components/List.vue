@@ -7,14 +7,12 @@
       hide-default-footer
     >
       <template v-slot:default="props">
-
         <v-row class="card-list">
           <transition-group name="list">
           <v-col
             class="card"
             v-for="(item,index) in props.items"
             :key="index"
-          
           >
             <v-card>
               <v-card-title class="subheading font-weight-bold">{{item.date}}
@@ -43,8 +41,6 @@
       </transition-group>
         </v-row>
       </template>
-
-
       <template v-slot:footer>
         <v-row class="mt-2" align="center" justify="center">
           <span class="grey--text">Items per page</span>
@@ -73,7 +69,6 @@
             </v-list>
           </v-menu>
           <v-spacer></v-spacer>
-
           <span
             class="mr-4
             grey--text"
@@ -106,7 +101,6 @@
 <script>
 import Dialog from "@/components/Dialog.vue"
 import DeleteButton from "@/components/DeleteButton.vue"
-import {dbUsers} from "@/db"
 import firebase from "firebase"
 
 export default {
@@ -162,19 +156,9 @@ export default {
       },
 
       async fetchMenu(){
-        
-        const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
-        const currentUserId = searchCurrentUser.docs[0].id
-
-        const menus = await dbUsers.doc(currentUserId).collection("menus").orderBy('date').get()
-        const myMenu = menus.docs.map(doc => doc.data())
-
-        myMenu.forEach(todayMenu => {
-          return todayMenu.date = todayMenu.date.toDate().toLocaleDateString()
-        })
-
-        this.items= myMenu.reverse();    
+        this.items= this.$store.state.everydayMenu  
       },
+
       getUpdateIndex(index){
         return ()=>{
           const updateDay = this.items[index].date
@@ -183,9 +167,7 @@ export default {
      },
      async saveUpdateMenu(updateDay){
        const stateMenus = this.fetchHoldMenu
-         const searchCurrentUser = await dbUsers.where("userId","==",this.user.uid).get()
-        const currentUserId = searchCurrentUser.docs[0].id
-          const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
+       const dbUserMenus = this.$store.state.dbMenu
 
         const menus = await dbUserMenus.get()
         const myMenu = menus.docs.map(doc => doc.data())
@@ -201,24 +183,14 @@ export default {
           {morning:stateMenus.morning,
           lunch:stateMenus.lunch,
           dinner:stateMenus.dinner});
-           this.fetchMenu()
+           this.$store.dispatch("fetchMenu")
            this.$store.commit("initialMenu");
-
      },
-   
     },
    created(){
-      this.fetchMenu();
       this.$store.dispatch("fetchMenu")
   },
-  // beforeUpdate(){
-  //  this.$store.commit("loading");
-  //  console.log("loading");
-
-  //   //  this.$store.commit("loaded");
-  // },
-
-  updated(){
+   updated(){
     this.$store.commit("loaded");
   },
   watch:{
@@ -241,8 +213,6 @@ export default {
 .list-leave{
   opacity: 0;
 }
-
-
 .form_wrapper{
   display: flex;
 }

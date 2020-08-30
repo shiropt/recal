@@ -17,7 +17,8 @@ export default new Vuex.Store({
     },
     user: {
       authState: false,
-      currentUserId:null
+      currentUserId: null,
+      dbUserId:null
       
     },
     everydayMenu: [
@@ -27,7 +28,8 @@ export default new Vuex.Store({
         dinner: null,
         date:null
       }
-    ]
+    ],
+    dbMenu:null
     
   },
   mutations: {
@@ -48,16 +50,20 @@ export default new Vuex.Store({
         dinner: null }
     },
     authStateChanged(state) {
+
       const userId = firebase.auth().currentUser
       state.user.currentUserId = userId
+      state.user.dbUserId=null
       state.user.authState = true
     },
     authState(state) {
       state.user.authState = false
     },
-    fetchEverydayMenu(state, myMenu) {
+    fetchEverydayMenu(state, payload) {
       state.loading=false
-      state.everydayMenu=myMenu      
+      state.everydayMenu = payload.myMenu.reverse()
+      state.user.dbUserId = payload.currentUserId
+      state.dbMenu = payload.dbUserMenus
     }
   },
   actions: {
@@ -69,7 +75,11 @@ export default new Vuex.Store({
       myMenu.forEach(todayMenu => {
         return todayMenu.date = todayMenu.date.toDate().toLocaleDateString()
       })
-      context.commit("fetchEverydayMenu",myMenu)
+
+      const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
+
+      const payload = {myMenu,currentUserId,dbUserMenus}
+      context.commit("fetchEverydayMenu",payload)
   
     }
   },

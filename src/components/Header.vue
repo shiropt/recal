@@ -17,14 +17,11 @@
    color="#0055f4"
    class="post-btn"
   />
-
-
    <v-btn outlined class="logout" @click="logout">Logout</v-btn>
 </div>
   </v-toolbar>
 </template>
 <script>
-import {dbUsers} from "@/db"
 import firebase from 'firebase'
 import Dialog from "@/components/Dialog.vue"
 export default {
@@ -67,31 +64,25 @@ export default {
    async saveMenu(inputedMenus){
       try{
          inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
-     const searchCurrentUser = await dbUsers.where("userId","==",this.$store.state.user.currentUserId.uid).get()
-     const currentUserId = searchCurrentUser.docs[0].id
-     const menus = await dbUsers.doc(currentUserId).collection("menus")
-     this.$store.commit("loading");
-     this.getToday()
-
-     const day = this.$store.state.everydayMenu
-      const date = day.filter(d => {
-        return d.date ===this.today
-      });
+         const menus = this.$store.state.dbMenu
+         this.$store.commit("loading");
+         this.getToday()
+         const day = this.$store.state.everydayMenu
+         const date = day.filter(d => {
+         return d.date ===this.today
+        });
       if(date.length===1){
         this.$store.commit("loaded");
         alert("今日は投稿済です。追加をする場合は編集をしてください")
-           return
-      }
+        return
+       }
      await menus.add(inputedMenus);
-     this.$store.dispatch("fetchMenu")
+       this.$store.dispatch("fetchMenu")
    }catch(error){
      alert(error.message)
    }
-},
-   },
-   reated(){
-  this.$store.dispatch("fetchMenu")
-},
+ },
+}
 
 }
 </script>
