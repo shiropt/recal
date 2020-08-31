@@ -30,7 +30,6 @@ export default new Vuex.Store({
       }
     ],
     dbMenu:null
-    
   },
   mutations: {
     loading(state) {
@@ -75,12 +74,9 @@ export default new Vuex.Store({
       myMenu.forEach(todayMenu => {
         return todayMenu.date = todayMenu.date.toDate().toLocaleDateString()
       })
-
       const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
-
       const payload = {myMenu,currentUserId,dbUserMenus}
       context.commit("fetchEverydayMenu",payload)
-  
     }
   },
   modules: {

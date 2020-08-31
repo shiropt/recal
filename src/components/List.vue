@@ -130,7 +130,6 @@ export default {
           },
         ],
         everydayMenu:this.$store.state.everydayMenu
-
       }
     },
     computed: {
@@ -166,26 +165,25 @@ export default {
         }
      },
      async saveUpdateMenu(updateDay){
-       const stateMenus = this.fetchHoldMenu
-       const dbUserMenus = this.$store.state.dbMenu
-
+        const stateMenus = this.fetchHoldMenu
+        const dbUserMenus = this.$store.state.dbMenu
         const menus = await dbUserMenus.get()
         const myMenu = menus.docs.map(doc => doc.data())
         const findUpdateDate = myMenu.find(arr =>{
-          return arr.date.toDate().toLocaleDateString()===updateDay
+         return arr.date.toDate().toLocaleDateString()===updateDay
          })
-       this.$store.commit("loading");
-
+        this.$store.commit("loading");
         const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
         const id = upday.docs[0].id
-        
-       await dbUserMenus.doc(id).update(
-          {morning:stateMenus.morning,
-          lunch:stateMenus.lunch,
-          dinner:stateMenus.dinner});
-           this.$store.dispatch("fetchMenu")
-           this.$store.commit("initialMenu");
-     },
+        await dbUserMenus.doc(id).update(
+          {
+           morning:stateMenus.morning,
+           lunch:stateMenus.lunch,
+           dinner:stateMenus.dinner
+           });
+        this.$store.dispatch("fetchMenu")
+        this.$store.commit("initialMenu");
+     }
     },
    created(){
       this.$store.dispatch("fetchMenu")
@@ -198,7 +196,6 @@ export default {
     }
   };
 </script>
-
 <style scoped>
 .list-move{
   transition: 1s;
@@ -206,7 +203,6 @@ export default {
 .list-enter-active {
   transition: opacity 1s;
 }
-
 .list-enter{
   opacity: 0;
 }
@@ -233,5 +229,4 @@ export default {
 .mt-2{
   width: 70%;
 }
-
 </style>
