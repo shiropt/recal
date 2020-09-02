@@ -8,7 +8,6 @@
         <v-spacer></v-spacer>
         <v-btn 
         color="success"
-        class="mr-4"
         >
            <router-link :to="{name: 'Signup', params:{id:$route.params.id} }" tag="a">新規登録</router-link>
         </v-btn><br>
@@ -72,6 +71,25 @@
   }
 </script>
 <style scoped>
+@media (max-width: 750px){
+  .container{
+    display: flex;
+    flex-direction:column;
+    text-align: center;
+    }
+  h1{
+    font-size: 30px;
+  }
+}
+@media (min-width: 751px){
+  .side-bar{
+
+    width: 700px;
+  }
+  .main{
+    width: 100%;
+  }
+}
 .fade-enter-active {
   transition: opacity 2s;
 }
@@ -104,11 +122,11 @@
 }
 .container{
   display: flex;
-  width: 100%;
+  margin: 2%;
 }
 .side-bar{
   height: 100%;
-  width: 40%;
+text-align: center;
 }
 
 .v-btn{
@@ -132,7 +150,6 @@ a {
 }
 
 .main{
-  width: 100%;
   height: 100%;
 }
 

@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style scoped>
+
 .v-enter-active {
     transition: opacity 1s;
 }
@@ -50,7 +51,6 @@ export default {
 	padding: 25px 50px;
 	color: #fff;
 	text-align: center;
-	/* width: 100%; */
 }
 .menu{
   padding-top: 60px;
