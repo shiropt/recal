@@ -1,5 +1,6 @@
 <template>
  <div class="wrapper">
+   
   <div class="left">
     <transition name="search">
      <router-view></router-view>
@@ -21,7 +22,8 @@ components:{
   },
 data(){
   return{
-    searchTop:true
+    searchTop:true,
+    drawer: false
   }
 },
 methods:{
@@ -31,10 +33,11 @@ methods:{
    }else{
      this.searchTop=false;
       }
-  }
+  },
+  
 },
 watch:{
-  '$route': 'createSearchTop'
+  '$route': 'createSearchTop',
   }
 }
 </script>

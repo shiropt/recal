@@ -37,9 +37,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeForm">Close</v-btn>
-          <v-btn color="blue darken-1"
-           text @click="clickSave">Save</v-btn>
+          <button class="close-btn" @click="closeForm">Close</button>
+          <button class="save-btn"  @click="clickSave">Save</button>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -132,5 +131,12 @@
   color: red;
   margin-left: 40px;
 }
-
+.v-btn{
+  width: 100%;
+}
+.close-btn,.save-btn{
+  margin: 10px;
+  font-size: 20px;
+  color:#0055f4;
+}
 </style>
