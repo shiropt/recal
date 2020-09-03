@@ -43,6 +43,33 @@ watch:{
 </script>
 
 <style scoped>
+.left{
+  width: 50%;
+  margin-left: 80px;
+}
+.right{
+  width: 50%;
+  height: 100%;
+  /* position: absolute; */
+  /* top: 20px; */
+  /* right: -150px; */
+  margin: 0;
+}
+@media (max-width: 750px){
+  .wrapper{
+    display: flex;
+    flex-direction:column;
+  
+  }
+  .left{
+    width: 90%;
+    margin-left: 10px;
+  }
+  .right{
+    width: 100%;
+  }
+ 
+}
 .search-enter-active {
   transition: opacity 1s;
 }
@@ -54,23 +81,12 @@ watch:{
 }
 
 
-.left{
-  width: 50%;
-  margin-left: 80px;
-}
-.right{
-  width: 50%;
-  height: 100%;
-  position: absolute;
-  top: 20px;
-  right: -150px;
-}
 .wrapper{
   position: relative;
   margin: 0 auto; 
   padding-top: 20px;
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100%;
 }
 </style>

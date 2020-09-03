@@ -40,6 +40,13 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
+                 <v-btn color="orange" class="mr-4">
+   <router-link :to="{name: 'Search', params:{id:$route.params.id}}" tag="a">ピックアップメニュー</router-link>
+  </v-btn>
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-title>
                 <Dialog
                   btnTitle="記録する"
                   :saveData ="saveMenu"
@@ -50,7 +57,7 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
-                <LogoutButton />
+                <LogoutButton class="logout"/>
               </v-list-item-title>
             </v-list-item>
           </v-list-item-group>
@@ -142,7 +149,7 @@ export default {
 }
 .menu{
   padding-top: 60px;
-  width: 100%;
+  width: 100vw;
 }
 .header{
   position: fixed;
@@ -169,5 +176,6 @@ a{
 .v-btn{
   width: 100%;
 }
+
 </style>
  

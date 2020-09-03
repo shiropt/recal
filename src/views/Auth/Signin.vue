@@ -70,7 +70,7 @@ import firebase from 'firebase'
         try{
           await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
           this.$store.commit("authStateChanged")
-         this.$router.push('/search')
+         this.$router.push('/search/recipe')
         }catch(error){
           this.errorMessage=error.message
           this.$store.commit("loaded");

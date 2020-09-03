@@ -50,6 +50,21 @@ async mounted () {
 </script>
 
 <style scoped>
+@media (max-width: 750px) {
+  h2{
+    font-size: 70%;
+  }
+  .recipe-title{
+
+  font-size: 12px;
+}
+.v-card__text{
+  padding: 4px;
+  font-size: 0.5rem;
+  line-height: 1rem;
+}
+  
+}
 a{
   text-decoration: none;
 }
@@ -69,7 +84,7 @@ h2:after {
   margin-bottom: 30px;
   width: 80%;
   padding: 0px;
-  margin-left: 50px;
+  /* margin-left: 50px; */
 }
 .recipe-title{
   text-decoration: none;

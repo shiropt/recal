@@ -35,8 +35,8 @@ body {
 .dot {
   display: inline-block;
   margin: 0 auto;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   margin-right: .4em;
   animation-name: dots;

@@ -6,7 +6,6 @@ import Store from '@/views/Select/Store.vue'
 import Recipe from '@/views/Select/Recipe.vue'
 import Signup from '@/views/Auth/Signup.vue'
 import Signin from '@/views/Auth/Signin.vue'
-// import firebase from 'firebase'
 
 Vue.use(VueRouter)
 
@@ -15,14 +14,6 @@ Vue.use(VueRouter)
       path: '/',
       name: 'Authentication',
       component: Authentication,
-      // beforeEnter(to, from, next) {
-      //   const user = firebase.auth().currentUser;
-      //   if (!user) {
-      //     next('/');
-      //   } else {
-      //     next("/search");
-      //   }
-      // },
       children: [
         {
           path: 'signup',

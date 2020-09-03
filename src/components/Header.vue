@@ -15,6 +15,9 @@
   <v-btn color="error" class="mr-4">
    <router-link :to="{name: 'Store', params:{id:$route.params.id}}" tag="a">外食する</router-link>
   </v-btn>
+  <v-btn color="#FF3D00" class="mr-4">
+   <router-link :to="{name: 'Search', params:{id:$route.params.id}}" tag="a">ピックアップ</router-link>
+  </v-btn>
   <Dialog
   btnTitle="記録する"
    :saveData ="saveMenu"
@@ -59,7 +62,7 @@ export default {
       if(!user){
          this.$router.push('/')
          }else{
-         this.$router.push('/search')
+         this.$router.push('/search/recipe')
       }
    },
    getToday(){

@@ -16,11 +16,12 @@
           >
             <v-card>
               <v-card-title class="subheading font-weight-bold">{{item.date}}
-                <v-spacer></v-spacer>
+                <v-spacer></v-spacer><br>
                 <Dialog
                 :setData="item"
                 :saveData ="getUpdateIndex(index)"
                 btnTitle="編集"
+                class="edit-btn"
                 />
                 <DeleteButton
                 :deleteDay="(item)"
@@ -197,6 +198,17 @@ export default {
   };
 </script>
 <style scoped>
+.card{
+  width: 80%;
+  margin-left: 40px;
+}
+@media (max-width: 750px){
+  .card{
+  width: 100%;
+  margin: 0;
+}
+  
+}
 .list-move{
   transition: 1s;
 }
@@ -216,9 +228,6 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.card{
-  width: 70%;
-}
 .v-input{
   width: 200px;
 }
@@ -226,7 +235,11 @@ export default {
   color: red;
   margin-left: 20px;
 }
-.mt-2{
-  width: 70%;
+.edit-btn{
+  width: 0%;
+  display: block;
 }
+/* .mt-2{
+  width: 70%;
+} */
 </style>

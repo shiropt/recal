@@ -1,5 +1,5 @@
 <template>
-  <v-btn outlined class="logout" @click="logout">Logout</v-btn>
+  <v-btn outlined class="logout" @click="logout">ログアウト</v-btn>
 </template>
 
 <script>
