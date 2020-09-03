@@ -4,6 +4,10 @@
       <v-btn text x-large width="100px" height="100px"  @click="logoClick">Recal</v-btn>
    </v-toolbar-title>
    <div class="flex-grow-1"></div>
+    
+  <div class="btn-list">
+    <v-app-bar-nav-icon v-if="this.$store.state.user.authState" @click="clickList"></v-app-bar-nav-icon>
+    </div>
 <div  v-if="this.$store.state.user.authState" class="btn-wrapper">
   <v-btn color="success" class="mr-4">
    <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="a">レシピを見る</router-link>
@@ -17,24 +21,30 @@
    color="#0055f4"
    class="post-btn"
   />
-   <v-btn outlined class="logout" @click="logout">Logout</v-btn>
+   <LogoutButton />
 </div>
   </v-toolbar>
 </template>
 <script>
 import firebase from 'firebase'
 import Dialog from "@/components/Dialog.vue"
+import LogoutButton from "@/components/LogoutButton.vue"
 export default {
  data(){
   return{
    user: firebase.auth().currentUser,
    today:null,
-  }
+
+}
  },
  components:{
   Dialog,
+  LogoutButton
    },
  methods:{
+   clickList(){
+    this.$emit('showList')
+   },
   async logout(){
     try{
       await firebase.auth().signOut()
@@ -86,6 +96,17 @@ export default {
 }
 </script>
 <style scoped>
+.btn-list{
+    display: none;
+  }
+@media (max-width: 750px){
+  .btn-wrapper{
+    display: none;
+  }
+  .btn-list{
+    display: block;
+  }
+}
 .logout{
    margin-left: 30px;
    margin-right: 70px;
