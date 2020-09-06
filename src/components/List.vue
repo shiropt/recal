@@ -16,13 +16,15 @@
           >
             <v-card>
               <v-card-title class="subheading font-weight-bold">{{item.date}}
-                <v-spacer></v-spacer><br>
+                <v-spacer></v-spacer>
+                <div class="edit-wrap">
                 <Dialog
                 :setData="item"
                 :saveData ="getUpdateIndex(index)"
                 btnTitle="編集"
                 class="edit-btn"
                 />
+                </div>
                 <DeleteButton
                 :deleteDay="(item)"
                 @fetchDelete="fetchMenu" />
@@ -70,12 +72,6 @@
             </v-list>
           </v-menu>
           <v-spacer></v-spacer>
-          <span
-            class="mr-4
-            grey--text"
-          >
-            Page {{ page }} of {{ numberOfPages }}
-          </span>
           <v-btn
             fab
             dark
@@ -239,7 +235,4 @@ export default {
   width: 0%;
   display: block;
 }
-/* .mt-2{
-  width: 70%;
-} */
 </style>

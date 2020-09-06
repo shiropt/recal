@@ -31,22 +31,23 @@
       <v-btn
         color="orange"
         text
+        class="smart"
       >
-    <v-card-subtitle class="pb-0">ご予約はこちら</v-card-subtitle>
-        <a :href="url_mobile"  target="_blank" class="link">スマホから</a>
+        <a :href="url_mobile"  target="_blank" class="link">予約する</a>
       </v-btn>
 
       <v-btn
         color="orange"
         text
+        class="pc"
       >
-       <a :href="url"  target="_blank" class="link">パソコンから</a>
+       <a :href="url"  target="_blank" class="link">予約する</a>
       </v-btn>
        <v-btn
         icon
         @click="show = !show"
       >
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        <v-icon class="toggle-icon">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
     </v-card-actions>
     <v-expand-transition>
@@ -65,8 +66,6 @@
     
   </v-card>
 </template>
-
-
 <script>
 export default {
   data(){
@@ -129,6 +128,23 @@ export default {
 </script>
 
 <style scoped>
+.smart{
+  display: none;
+}
+@media (max-width: 750px){
+  .info-wrapper{
+display: flex;
+flex-direction:column;
+}
+.pc{
+  display: none;
+}
+.smart{
+  display: block;
+}
+
+  
+}
 .store-title{
   text-shadow: 1px 1px 0 rgba(0,0,0,.5);
 
@@ -157,7 +173,9 @@ display: flex;
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
 margin-left: 3px;
+margin-right: 120px;
 }
+
 .link:active {
   border-bottom: solid 2px #fd9535;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.30);
@@ -165,6 +183,8 @@ margin-left: 3px;
 ul{
   list-style: none;
 }
-
+.toggle-icon{
+  width: 100px;
+}
 
 </style>

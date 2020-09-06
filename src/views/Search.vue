@@ -50,9 +50,6 @@ watch:{
 .right{
   width: 50%;
   height: 100%;
-  /* position: absolute; */
-  /* top: 20px; */
-  /* right: -150px; */
   margin: 0;
 }
 @media (max-width: 750px){

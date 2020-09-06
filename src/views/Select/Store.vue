@@ -83,6 +83,13 @@ export default {
 </script>
 
 <style scoped>
+/* @media (max-width: 750px){
+  .store{
+  width: 100%;
+  margin: 0;
+}
+  
+} */
 .store{
   width: 90%;
 }

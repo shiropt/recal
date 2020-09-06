@@ -52,18 +52,17 @@ async mounted () {
 <style scoped>
 @media (max-width: 750px) {
   h2{
-    font-size: 70%;
+    font-size: 120%;
   }
   .recipe-title{
 
-  font-size: 12px;
+  font-size: 16px;
 }
 .v-card__text{
   padding: 4px;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   line-height: 1rem;
-}
-  
+}  
 }
 a{
   text-decoration: none;
@@ -84,7 +83,6 @@ h2:after {
   margin-bottom: 30px;
   width: 80%;
   padding: 0px;
-  /* margin-left: 50px; */
 }
 .recipe-title{
   text-decoration: none;
@@ -115,6 +113,7 @@ li{
   border-radius: 4px;
   box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 2px rgba(0, 0, 0, 0.19);
   margin-bottom: 20px;
+  margin-top: 5px;
 }
 .link:active {
   border-bottom: solid 2px #fd9535;
