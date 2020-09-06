@@ -1,6 +1,6 @@
 <template>
 <v-app >
-  <div >
+  <div class="wrapper">
    <Header class="header"
    @showList="showList"
    
@@ -146,6 +146,11 @@ export default {
 	padding: 25px 50px;
 	color: #fff;
 	text-align: center;
+}
+.wrapper{
+  height:100%;
+    background-image: -webkit-linear-gradient(left, #F4F4F4 4%, #DFDEDC 99%);
+  background-image: linear-gradient(to right, #F4F4F4 4%, #DFDEDC 99%); 
 }
 .menu{
   padding-top: 60px;
