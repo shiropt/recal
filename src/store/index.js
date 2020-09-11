@@ -13,7 +13,8 @@ export default new Vuex.Store({
     menus: {
        morning: null ,
        lunch: null ,
-      dinner: null
+      dinner: null,
+      date:null
     },
     user: {
       authState: false,
