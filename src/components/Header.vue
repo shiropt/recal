@@ -22,6 +22,9 @@
    :saveData ="saveMenu"
    color="#0055f4"
    class="post-btn"
+   :selectDay="true"
+   @editDate="editDate"
+   :editDay= editDay
   />
    <LogoutButton />
 </div>
@@ -35,7 +38,7 @@ export default {
  data(){
   return{
    user: firebase.auth().currentUser,
-   today:null,
+   editDay:null
 
 }
  },
@@ -44,6 +47,10 @@ export default {
   LogoutButton
    },
  methods:{
+   editDate(value){
+     this.editDay=value
+
+   },
    clickList(){
     this.$emit('showList')
    },
@@ -64,37 +71,29 @@ export default {
          this.$router.push('/search/recipe')
       }
    },
-   getToday(){
-    const date = new Date()
-    const y = date.getFullYear()
-    const m = date.getMonth()
-    const d = date.getDate()
-    const today = `${y}/${m+1}/${d}`
-    this.today = today
-
-  },
    async saveMenu(inputedMenus){
       try{
         //  ローディングアイコンを表示
          this.$store.commit("loading");
-        // 入力された情報に当日の日付をfirebaseから取得して追加
-         inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
+        // dateに指定がなければ当日の日付をfirebaseから取得して追加
+        if(inputedMenus.date === null){
+          inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
+        }
+        
         //  stateからmenuscollectionを取得
          const menus = this.$store.state.dbMenu
-        //  当日の日付をdataに格納
-         this.getToday()
         //  stateから投稿済メニューを取得
-         const day = this.$store.state.everydayMenu
+        //  const day = this.$store.state.everydayMenu
         //  今日の日付での投稿を探す
-         const date = day.filter(d => {
-         return d.date ===this.today
-        });
+        //  const date = day.filter(d => {
+        //  return d.date ===this.today
+        // });
         // 今日の日付で投稿がある場合、エラーメッセージ を表示し、処理を終了
-      if(date.length===1){
-        this.$store.commit("loaded");
-        alert("今日は投稿済です。追加をする場合は編集をしてください")
-        return
-       }
+      // if(date.length===1){
+      //   this.$store.commit("loaded");
+      //   alert("今日は投稿済です。追加をする場合は編集をしてください")
+      //   return
+      //  }
       //  入力された情報をfirestoreに保存
      await menus.add(inputedMenus);
     // storeのfetchMenuを実行し、stateにfirebaseの情報を格納し、v-forでレンダリングする
