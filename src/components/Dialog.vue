@@ -50,8 +50,6 @@
       color:{
         type:String,
         default:"success"
-
-
       },
       btnTitle:{
         type:String,
@@ -74,33 +72,34 @@
         formCheck:false
       }
     },
-
-   
     methods:{
       onClick(){
+        // propsで渡ってきたsetDataに値が入っているかでフォームに値をセットするかを条件分岐
         if(this.setData !==undefined){
           this.setAlreadyMenu()
         }
-
       },
       setAlreadyMenu(){
+        // 投稿済みのメニューをフォームにセット（編集機能）
         const editMenu = this.setData
         this.morning=editMenu.morning
         this.lunch=editMenu.lunch
         this.dinner=editMenu.dinner
-      
       },
      clickSave(){
+      //  入力された情報をオブジェクトに格納
          const payload = {
            morning: this.morning ,
            lunch: this.lunch ,
            dinner: this.dinner 
            };
+      //  フォームが全て未入力の場合formValidationメソッドを実行して処理を終了
            if(Object.values(payload).every(value => value ===null)){
              this.formValidation()
              return
            }
         this.$store.commit("holdMenu",payload);
+      // propsのsaveDataメソッドを実行
         this.saveData(payload)
         this.dialog = false
         this.morning=null,
@@ -109,14 +108,16 @@
         this.formCheck=false
       },
       formValidation(){
+        // エラーメッセージの表示
         this.formCheck=true
       },
       closeForm(){
+        // ダイアログを閉じる
         this.dialog=false
+        // エラーメッセージを消す
         this.formCheck=false
       }
-
-    },
+    }
   }
 </script>
 <style scoped>

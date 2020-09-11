@@ -130,9 +130,6 @@ export default {
       }
     },
     computed: {
-      fetchHoldMenu(){
-      return this.$store.state.menus
-    },
       numberOfPages () {
         return Math.ceil(this.items.length / this.itemsPerPage)
       },
@@ -156,29 +153,38 @@ export default {
       },
 
       getUpdateIndex(index){
+        // 編集する投稿のインデックス番号をクロージャを使って取得
         return ()=>{
           const updateDay = this.items[index].date
           this.saveUpdateMenu(updateDay)
         }
      },
      async saveUpdateMenu(updateDay){
-        const stateMenus = this.fetchHoldMenu
+        this.$store.commit("loading");
+        const stateMenus = this.$store.state.menus
+        // ログインユーザーのmenus collectionをstateから取得
         const dbUserMenus = this.$store.state.dbMenu
         const menus = await dbUserMenus.get()
+        // firestoreからmenusのドキュメントを取得
         const myMenu = menus.docs.map(doc => doc.data())
+        // 選択した日付と同じdateを持つドキュメントを変数に格納
         const findUpdateDate = myMenu.find(arr =>{
          return arr.date.toDate().toLocaleDateString()===updateDay
          })
-        this.$store.commit("loading");
+        //  firestoreから更新する日付と一致したドキュメントを取得
         const upday = await dbUserMenus.where('date','==',findUpdateDate.date).get()
+        // 取得したドキュメントのidを変数に格納
         const id = upday.docs[0].id
+        // menus collectionの取得したidと一致するドキュメントを更新
         await dbUserMenus.doc(id).update(
           {
            morning:stateMenus.morning,
            lunch:stateMenus.lunch,
            dinner:stateMenus.dinner
            });
+        //再読み込み 
         this.$store.dispatch("fetchMenu")
+        //stateのmenusを空にする
         this.$store.commit("initialMenu");
      }
     },

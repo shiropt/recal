@@ -4,8 +4,7 @@
       <v-btn text x-large width="100px" height="100px"  @click="logoClick">Recal</v-btn>
    </v-toolbar-title>
    <div class="flex-grow-1"></div>
-    
-  <div class="btn-list">
+    <div class="btn-list">
     <v-app-bar-nav-icon v-if="this.$store.state.user.authState" @click="clickList"></v-app-bar-nav-icon>
     </div>
 <div  v-if="this.$store.state.user.authState" class="btn-wrapper">
@@ -76,20 +75,29 @@ export default {
   },
    async saveMenu(inputedMenus){
       try{
-         inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
-         const menus = this.$store.state.dbMenu
+        //  ローディングアイコンを表示
          this.$store.commit("loading");
+        // 入力された情報に当日の日付をfirebaseから取得して追加
+         inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
+        //  stateからmenuscollectionを取得
+         const menus = this.$store.state.dbMenu
+        //  当日の日付をdataに格納
          this.getToday()
+        //  stateから投稿済メニューを取得
          const day = this.$store.state.everydayMenu
+        //  今日の日付での投稿を探す
          const date = day.filter(d => {
          return d.date ===this.today
         });
+        // 今日の日付で投稿がある場合、エラーメッセージ を表示し、処理を終了
       if(date.length===1){
         this.$store.commit("loaded");
         alert("今日は投稿済です。追加をする場合は編集をしてください")
         return
        }
+      //  入力された情報をfirestoreに保存
      await menus.add(inputedMenus);
+    // storeのfetchMenuを実行し、stateにfirebaseの情報を格納し、v-forでレンダリングする
        this.$store.dispatch("fetchMenu")
    }catch(error){
      alert(error.message)

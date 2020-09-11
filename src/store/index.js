@@ -59,21 +59,31 @@ export default new Vuex.Store({
       state.user.authState = false
     },
     fetchEverydayMenu(state, payload) {
-      state.loading=false
+      // 読み込みが終わったらローディングアイコンを消す
+      state.loading = false
+      // sateにfirebaseから取得したログインユーザーのメニュー情報を日付順に格納
       state.everydayMenu = payload.myMenu.reverse()
+      // stateにログインユーザーのidを保管
       state.user.dbUserId = payload.currentUserId
+      // stateにログインユーザーの持つmenus情報を保管
       state.dbMenu = payload.dbUserMenus
     }
   },
   actions: {
-   async fetchMenu(context) {
-      const searchCurrentUser = await dbUsers.where("userId","==",firebase.auth().currentUser.uid).get()
+    async fetchMenu(context) {
+      // ログインユーザーとfirestoreのuserIdが一致したユーザー情報を取得
+      const searchCurrentUser = await dbUsers.where("userId", "==", firebase.auth().currentUser.uid).get()
+      // 取得したユーザー情報のidを取得
       const currentUserId = searchCurrentUser.docs[0].id
+      // ユーザーidと一致したfirestoreのmenusのcollectionを日付順に取得
       const menus = await dbUsers.doc(currentUserId).collection("menus").orderBy('date').get()
+      // menusのドキュメントを配列で取得
       const myMenu = menus.docs.map(doc => doc.data())
+      // dateのタイムスタンプ型を変換
       myMenu.forEach(todayMenu => {
         return todayMenu.date = todayMenu.date.toDate().toLocaleDateString()
       })
+      // ログインユーザーの持つmenus情報を変数に格納
       const dbUserMenus = dbUsers.doc(currentUserId).collection("menus")
       const payload = {myMenu,currentUserId,dbUserMenus}
       context.commit("fetchEverydayMenu",payload)
