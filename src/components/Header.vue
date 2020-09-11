@@ -31,6 +31,7 @@
   </v-toolbar>
 </template>
 <script>
+import moment from "moment";
 import firebase from 'firebase'
 import Dialog from "@/components/Dialog.vue"
 import LogoutButton from "@/components/LogoutButton.vue"
@@ -38,7 +39,7 @@ export default {
  data(){
   return{
    user: firebase.auth().currentUser,
-   editDay:null
+   editDay:null,
 
 }
  },
@@ -77,23 +78,24 @@ export default {
          this.$store.commit("loading");
         // dateに指定がなければ当日の日付をfirebaseから取得して追加
         if(inputedMenus.date === null){
-          inputedMenus.date = firebase.firestore.FieldValue.serverTimestamp()
+          inputedMenus.date = moment(new Date)._d
         }
-        
         //  stateからmenuscollectionを取得
          const menus = this.$store.state.dbMenu
         //  stateから投稿済メニューを取得
-        //  const day = this.$store.state.everydayMenu
-        //  今日の日付での投稿を探す
-        //  const date = day.filter(d => {
-        //  return d.date ===this.today
-        // });
-        // 今日の日付で投稿がある場合、エラーメッセージ を表示し、処理を終了
-      // if(date.length===1){
-      //   this.$store.commit("loaded");
-      //   alert("今日は投稿済です。追加をする場合は編集をしてください")
-      //   return
-      //  }
+         const postDays = this.$store.state.everydayMenu
+        //  投稿をする日付のタイムスタンプ型を変換
+           const time = moment(inputedMenus.date).format("YYYY/M/D");
+        //  投稿する日付と過去の投稿で同じ日があるか検索
+         const date = postDays.filter(postDay => {
+         return postDay.date === time
+        });
+        // 同じ日付で投稿がある場合、エラーメッセージ を表示し、処理を終了
+      if(date.length>0){
+        this.$store.commit("loaded");
+        alert("この日は投稿済です。追加をする場合は編集をしてください")
+        return
+       }
       //  入力された情報をfirestoreに保存
      await menus.add(inputedMenus);
     // storeのfetchMenuを実行し、stateにfirebaseの情報を格納し、v-forでレンダリングする
