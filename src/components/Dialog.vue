@@ -20,6 +20,7 @@
           :format="DatePickerFormat"
            v-model="date"
            placeholder= "日付を選択"
+           class="datepicker"
            ></Datepicker>
         </v-card-title>
         <v-card-text>
@@ -167,7 +168,8 @@ import Datepicker from 'vuejs-datepicker';
   font-size: 20px;
   color:#0055f4;
 }
-.date{
+.datepicker{
   margin-left: 30px;
+  cursor: pointer;
 }
 </style>
