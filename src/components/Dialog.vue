@@ -15,6 +15,12 @@
       <v-card>
         <v-card-title>
           <span class="headline">{{btnTitle}}</span>
+          <Datepicker
+          v-if="this.selectDay"
+          :format="DatePickerFormat"
+           v-model="date"
+           placeholder= "日付を選択"
+           ></Datepicker>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -45,7 +51,11 @@
   </v-row>
 </template>
 <script>
+import Datepicker from 'vuejs-datepicker';
   export default {
+    components:{
+      Datepicker
+    },
     props:{
       color:{
         type:String,
@@ -61,7 +71,15 @@
       },
       setData:{
       type:Object
+      },
+      selectDay:{
+        type:Boolean,
+        default:false
+      },
+      editDay:{
+        type:Date
       }
+    
     },
     data() {
       return{
@@ -69,8 +87,20 @@
         lunch:null,
         dinner:null,
         dialog: false,
-        formCheck:false
+        formCheck:false,
+        DatePickerFormat: 'yyyy-MM-dd',
       }
+    },
+    computed:{
+      date:{
+        get(){
+          return this.$props.editDay
+        },
+        set(value){
+          this.$emit("editDate",value)
+        }
+      }
+
     },
     methods:{
       onClick(){
@@ -91,7 +121,8 @@
          const payload = {
            morning: this.morning ,
            lunch: this.lunch ,
-           dinner: this.dinner 
+           dinner: this.dinner,
+           date:this.editDay
            };
       //  フォームが全て未入力の場合formValidationメソッドを実行して処理を終了
            if(Object.values(payload).every(value => value ===null)){
@@ -116,8 +147,8 @@
         this.dialog=false
         // エラーメッセージを消す
         this.formCheck=false
-      }
-    }
+      },
+    },
   }
 </script>
 <style scoped>
@@ -135,5 +166,8 @@
   margin: 10px;
   font-size: 20px;
   color:#0055f4;
+}
+.date{
+  margin-left: 30px;
 }
 </style>
