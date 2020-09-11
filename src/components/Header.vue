@@ -90,6 +90,7 @@ export default {
          const date = postDays.filter(postDay => {
          return postDay.date === time
         });
+        this.editDay=null
         // 同じ日付で投稿がある場合、エラーメッセージ を表示し、処理を終了
       if(date.length>0){
         this.$store.commit("loaded");
