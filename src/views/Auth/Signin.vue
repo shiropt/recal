@@ -10,13 +10,16 @@
       :rules="emailRules"
       label="E-mail"
       required
+      prepend-icon="mdi-email"
     ></v-text-field>
 
     <v-text-field
+    type="password"
       v-model="password"
       :rules="passwordRules"
       label="Password"
       required
+      prepend-icon="mdi-lock"
     ></v-text-field>
 
     <v-btn

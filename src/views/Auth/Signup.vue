@@ -10,14 +10,17 @@
       :rules="emailRules"
       label="E-mail"
       required
+    prepend-icon="mdi-email"
     ></v-text-field>
 
     <v-text-field
     placeholder="パスワードは半角英数字6文字以上必要です"
+    type="password"
       v-model="password"
       :rules="passwordRules"
       label="Password"
       required
+    prepend-icon="mdi-lock"
     ></v-text-field>
 
     <v-btn
