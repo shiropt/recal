@@ -142,7 +142,8 @@ background-color: rgba(219, 197, 152, 0.5)
   width: 90%;
 }
   .description{
-    font-weight: normal;
+    height: 100px;
+    line-height: 30px;
     font-size: 16px;
   }
   .container{
