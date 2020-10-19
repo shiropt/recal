@@ -1,6 +1,7 @@
 <template>
  <div class="container">
-        <img class="top-image" :src="imgPath" alt="TOPIMAGE" width="100%" height="100%">
+   <div class="top-image">
+        <img :src="imgPath" alt="TOPIMAGE" width="100%" height="100%">
         <div class="top-message">
           
           <h2 class="message">日々の食事を管理</h2>
@@ -9,6 +10,8 @@
           迷った時にはRecalで検索！
           </h3>
         </div>
+
+   </div>
        <div class="main">
          <transition name="auth">
          <router-view></router-view>
@@ -120,7 +123,6 @@
    width: 100%;
    height: 200px;
    line-height: 50px;
-   margin: 0 auto;
    text-align: center;
    background: white;
    font-size: 1.2rem;
@@ -142,22 +144,26 @@
   background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
 }
 .container{
-  position: relative;
   max-width: 100%;
   padding: 0;
   margin: 0;
  
 }
 .top-message{
+  width: 70%;
+  height: 60%;
+  padding-top: 20px;
+  text-align: center;
   position:absolute;
-  top: 40px;
-  left:50px;
+  top: 25%;
+  left:15%;
+background-color: rgba(219, 197, 152, 0.5)
 }
 .message{
   color: #ffff;
     font-size: 2rem;
     font-family: sans-serif;
-      text-shadow: 1px 1px 2px black;
+      text-shadow: 2px 2px 4px black;
      box-shadow: 1 1 1re
 
 }
@@ -183,6 +189,8 @@ a {
 
 .top-image{
   opacity: 0.8;
+    position: relative;
+
 }
 li{
 
