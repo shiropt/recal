@@ -33,6 +33,16 @@
     </v-btn>
 
     <v-btn
+      :disabled="!valid"
+      color="success"
+      class="mr-4"
+      outlined
+      @click="validate; gestSignIn()"
+    >
+      ゲストログイン
+    </v-btn>
+
+    <v-btn
       color="error"
       class="mr-4"
       @click="reset"
@@ -72,6 +82,19 @@ import firebase from 'firebase'
       },
       async signIn(){
         this.$store.commit("loading");
+        try{
+          await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+          this.$store.commit("authStateChanged")
+         this.$router.push('/search/recipe')
+        }catch(error){
+          this.errorMessage=error.message
+          this.$store.commit("loaded");
+        }
+      },
+      async gestSignIn(){
+        this.$store.commit("loading");
+        this.password="testpass"
+        this.email="recal@test.ne.jp"
         try{
           await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
           this.$store.commit("authStateChanged")
