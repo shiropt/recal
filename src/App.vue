@@ -5,6 +5,7 @@
    @showList="showList"
    
    /> 
+
    <div class="menu">
      <Loading v-if="this.$store.state.loading"  class="loading"/>
      <transition appear>
@@ -77,6 +78,7 @@ export default {
     return{
       loading:true,
       drawer:false
+
       
     }
   },
@@ -149,8 +151,8 @@ export default {
 }
 .wrapper{
   height:100%;
-    background-image: -webkit-linear-gradient(left, #F4F4F4 4%, #DFDEDC 99%);
-  background-image: linear-gradient(to right, #F4F4F4 4%, #DFDEDC 99%); 
+    /* background-image: -webkit-linear-gradient(left, #F4F4F4 4%, #DFDEDC 99%);
+  background-image: linear-gradient(to right, #F4F4F4 4%, #DFDEDC 99%);  */
 }
 .menu{
   padding-top: 60px;
