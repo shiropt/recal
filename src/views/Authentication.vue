@@ -93,7 +93,7 @@
 }
 .top-message{
   width: 80%;
-  height: 60%;
+  height: 58%;
   padding-top: 20px;
   text-align: center;
   position:absolute;

@@ -1,5 +1,8 @@
 <template>
   <div class="store-form">
+    <div class="title">
+   <h2>飲食店を検索</h2>
+  </div>
    <v-text-field 
    @input="clearForm" 
    type="text" 
@@ -58,6 +61,23 @@ export default {
 <style scoped>
 p{
   color: red;
+}
+h2 {
+  position: relative;
+  padding: 0.25em 0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+}
+h2:after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+  background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
+.title{
+  margin-bottom: 30px;
+  width: 80%;
+  padding: 0px;
 }
 
 </style>

@@ -12,20 +12,22 @@
            
           <router-link :to="{name: 'Signin', params:{id:$route.params.id} }" tag="a" class="first-link">ログイン</router-link>
     </div>
-<div  v-if="this.$store.state.user.authState" class="btn-wrapper">
-  <v-btn color="success" class="mr-4">
+<div 
+ v-if="this.$store.state.user.authState"
+  class="btn-wrapper">
+  <v-btn text class="mr-4">
    <router-link :to="{name: 'Recipe', params:{id:$route.params.id} }" tag="a">レシピを見る</router-link>
   </v-btn>
-  <v-btn color="error" class="mr-4">
+  <v-btn text class="mr-4">
    <router-link :to="{name: 'Store', params:{id:$route.params.id}}" tag="a">外食する</router-link>
   </v-btn>
-  <v-btn color="#FF3D00" class="mr-4">
+  <v-btn text class="mr-4">
    <router-link :to="{name: 'Search', params:{id:$route.params.id}}" tag="a">ピックアップ</router-link>
   </v-btn>
-  <Dialog
+  <RecordButton
   btnTitle="記録する"
    :saveData ="saveMenu"
-   color="#0055f4"
+   color= text
    class="post-btn"
    :selectDay="true"
    @editDate="editDate"
@@ -38,7 +40,7 @@
 <script>
 import moment from "moment";
 import firebase from 'firebase'
-import Dialog from "@/components/Dialog.vue"
+import RecordButton from "@/components/RecordButton.vue"
 import LogoutButton from "@/components/LogoutButton.vue"
 export default {
  data(){
@@ -49,7 +51,7 @@ export default {
 }
  },
  components:{
-  Dialog,
+  RecordButton,
   LogoutButton
    },
  methods:{
@@ -114,13 +116,16 @@ export default {
 }
 </script>
 <style scoped>
+.v-btn.v-size--default {
+    font-size: 1rem;
+    height: 60px;
+}
 .logo{
     width: 100px;
     margin-left: 40px;
-
   cursor: pointer;
   height: 60px;
-line-height: 60px;
+  line-height: 60px;
     font-size: 1.8rem;
 
 }
@@ -157,19 +162,21 @@ font-size: 1rem;
 }
 .logout{
    margin-left: 30px;
-   margin-right: 70px;
 }
 a{
-  line-height: 32px;
+  line-height: 60px;
   display: block;
-  height: 32px;
+  height: 60px;
   text-decoration: none;
 }
 .post-btn{
   display: inline-block;
   margin-left: 8px;
+  height: 60px;
 }
 .btn-wrapper{
+  height: 60px;
+  line-height: 60px;
   text-align: center;
   text-align-last: left;
 }
