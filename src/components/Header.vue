@@ -114,10 +114,39 @@ export default {
 }
 </script>
 <style scoped>
+.logo{
+    width: 100px;
+    margin-left: 40px;
+
+  cursor: pointer;
+  height: 60px;
+line-height: 60px;
+    font-size: 1.8rem;
+
+}
+.first-btn-wrapper{
+  width: 24%;
+  display: flex;
+}
+.first-link{
+  height: 60px;
+  line-height: 60px;
+  font-size: 1.4rem;
+  margin-left: 20px;
+}
 .btn-list{
     display: none;
   }
 @media (max-width: 750px){
+  .logo{
+    margin-left: 10px;
+  }
+  .first-btn-wrapper{
+    width: 50%;
+  }
+  .first-link{
+font-size: 1rem;
+  }
   .btn-wrapper{
     display: none;
   }
@@ -147,25 +176,5 @@ a{
   display: block;
   color: white;
 
-}
-.logo{
-    width: 100px;
-    margin-left: 40px;
-
-  cursor: pointer;
-  height: 60px;
-line-height: 60px;
-    font-size: 1.8rem;
-
-}
-.first-btn-wrapper{
-  width: 24%;
-  display: flex;
-}
-.first-link{
-  height: 60px;
-  line-height: 60px;
-  font-size: 1.4rem;
-  margin-left: 20px;
 }
 </style>
