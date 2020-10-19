@@ -1,11 +1,16 @@
 <template v-slot:header>
   <v-toolbar  dark color="orange">
    <v-toolbar-title>
-      <v-btn text x-large width="100px" height="100px"  @click="logoClick">Recal</v-btn>
+      <div class="logo"  @click="logoClick">Recal</div>
    </v-toolbar-title>
    <div class="flex-grow-1"></div>
     <div class="btn-list">
     <v-app-bar-nav-icon v-if="this.$store.state.user.authState" @click="clickList"></v-app-bar-nav-icon>
+    </div>
+    <div v-if="!this.$store.state.user.authState" class="first-btn-wrapper">
+           <router-link :to="{name: 'Signup', params:{id:$route.params.id} }" tag="a" class="first-link">新規登録</router-link>
+           
+          <router-link :to="{name: 'Signin', params:{id:$route.params.id} }" tag="a" class="first-link">ログイン</router-link>
     </div>
 <div  v-if="this.$store.state.user.authState" class="btn-wrapper">
   <v-btn color="success" class="mr-4">
@@ -142,5 +147,25 @@ a{
   display: block;
   color: white;
 
+}
+.logo{
+    width: 100px;
+    margin-left: 40px;
+
+  cursor: pointer;
+  height: 60px;
+line-height: 60px;
+    font-size: 1.8rem;
+
+}
+.first-btn-wrapper{
+  width: 24%;
+  display: flex;
+}
+.first-link{
+  height: 60px;
+  line-height: 60px;
+  font-size: 1.4rem;
+  margin-left: 20px;
 }
 </style>
