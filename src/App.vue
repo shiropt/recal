@@ -64,11 +64,13 @@
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
+      <Footer />
 </v-app>
 </template>
 <script>
 import firebase from 'firebase'
   import Header from "@/components/Header.vue"
+  import Footer from "@/components/Footer.vue"
   import Loading from "@/components/Loading.vue"
   import Dialog from "@/components/Dialog.vue"
   import LogoutButton from "@/components/LogoutButton.vue"
@@ -86,7 +88,8 @@ export default {
     Header,
     Loading,
     LogoutButton,
-    Dialog
+    Dialog,
+    Footer
   },
   methods:{
     showList(){
