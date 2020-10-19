@@ -26,6 +26,7 @@
       :disabled="!valid"
       color="warning"
       class="mr-4"
+      outlined
       @click="validate; signIn()"
     >
       ログイン
@@ -35,6 +36,7 @@
       color="error"
       class="mr-4"
       @click="reset"
+      outlined
     >
       Reset Form
     </v-btn>
@@ -87,6 +89,7 @@ import firebase from 'firebase'
 .v-form{
   width: 90%;
   margin: 0 auto;
+  height: 300px;
 }
 h1 {
   position: relative;

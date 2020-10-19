@@ -5,6 +5,7 @@
    @showList="showList"
    
    /> 
+
    <div class="menu">
      <Loading v-if="this.$store.state.loading"  class="loading"/>
      <transition appear>
@@ -63,11 +64,13 @@
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
+      <Footer />
 </v-app>
 </template>
 <script>
 import firebase from 'firebase'
   import Header from "@/components/Header.vue"
+  import Footer from "@/components/Footer.vue"
   import Loading from "@/components/Loading.vue"
   import Dialog from "@/components/Dialog.vue"
   import LogoutButton from "@/components/LogoutButton.vue"
@@ -77,6 +80,7 @@ export default {
     return{
       loading:true,
       drawer:false
+
       
     }
   },
@@ -84,7 +88,8 @@ export default {
     Header,
     Loading,
     LogoutButton,
-    Dialog
+    Dialog,
+    Footer
   },
   methods:{
     showList(){
@@ -149,8 +154,8 @@ export default {
 }
 .wrapper{
   height:100%;
-    background-image: -webkit-linear-gradient(left, #F4F4F4 4%, #DFDEDC 99%);
-  background-image: linear-gradient(to right, #F4F4F4 4%, #DFDEDC 99%); 
+    /* background-image: -webkit-linear-gradient(left, #F4F4F4 4%, #DFDEDC 99%);
+  background-image: linear-gradient(to right, #F4F4F4 4%, #DFDEDC 99%);  */
 }
 .menu{
   padding-top: 60px;
