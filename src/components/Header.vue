@@ -129,6 +129,7 @@ line-height: 60px;
   display: flex;
 }
 .first-link{
+  opacity: 0.8;
   height: 60px;
   line-height: 60px;
   font-size: 1.4rem;
@@ -176,5 +177,8 @@ a{
   display: block;
   color: white;
 
+}
+.first-link:hover{
+  opacity: 1;
 }
 </style>
