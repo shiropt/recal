@@ -125,7 +125,7 @@ line-height: 60px;
 
 }
 .first-btn-wrapper{
-  width: 24%;
+  width: 30%;
   display: flex;
 }
 .first-link{

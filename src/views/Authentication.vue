@@ -82,25 +82,96 @@
   }
 </script>
 <style scoped>
-@media (max-width: 750px){
+.description {
+  width: 100%;
+  height: 200px;
+  line-height: 50px;
+  text-align: center;
+  background: white;
+  font-size: 1.2rem;
+  font-weight:bold;
+}
+.top-message{
+  width: 80%;
+  height: 60%;
+  padding-top: 20px;
+  text-align: center;
+  position:absolute;
+  top: 25%;
+  left:10%;
+background-color: rgba(219, 197, 152, 0.5)
+}
+.message{
+  color: #ffff;
+    font-size: 1.8rem;
+    font-family: sans-serif;
+      text-shadow: 2px 2px 4px black;
+      box-shadow: 1 1 1re
+}
+.function-list{
+  display: flex;
+  margin-top: 50px;
+}
+.function{
+  width: 30%;
+  margin: 0 30px;
+}
+.function-title{
+  border: solid 3px orange;
+  padding: 0.5em;
+  border-radius: 0.5em;
+
+}
+.benefit{
+  width: 100%;
+  height: 350px;
+  padding: 48px 0px;
+  text-align: center;
+  background-color: #edf2f5;
+
+}
+@media (max-width: 650px){
+  .benefit{
+    height: 550px;
+
+  }
+.function-list{
+    flex-direction:column;
+}
+.function{
+  width: 90%;
+}
+  .description{
+    font-weight: normal;
+    font-size: 16px;
+  }
   .container{
     display: flex;
     flex-direction:column;
     text-align: center;
     }
-  h1{
-    font-size: 30px;
-  }
+  .top-message{
+  width: 90%;
+  height: 80%;
+  top: 5%;
+  left:5%;
 }
-@media (min-width: 751px){
-  .side-bar{
+  .message{
+    font-size: 1.5rem;
 
-    width: 700px;
-  }
-  .main{
-    width: 100%;
-  }
 }
+}
+@media (max-width: 480px){
+  .message{
+        font-size: 1rem;
+  }
+   .description{
+    font-size: 12px;
+  }
+
+
+}
+
 .fade-enter-active {
   transition: opacity 2s;
 }
@@ -119,23 +190,6 @@
   opacity: 0;
 }
 
- .description {
-   width: 100%;
-   height: 200px;
-   line-height: 50px;
-   text-align: center;
-   background: white;
-   font-size: 1.2rem;
-   font-weight:bold;
-}
-.benefit{
-  width: 100%;
-  height: 350px;
-  padding: 48px 0px;
-  text-align: center;
-  background-color: #edf2f5;;
-;
-}
 .title:after {
   content: "";
   display: block;
@@ -148,24 +202,6 @@
   padding: 0;
   margin: 0;
  
-}
-.top-message{
-  width: 70%;
-  height: 60%;
-  padding-top: 20px;
-  text-align: center;
-  position:absolute;
-  top: 25%;
-  left:15%;
-background-color: rgba(219, 197, 152, 0.5)
-}
-.message{
-  color: #ffff;
-    font-size: 2rem;
-    font-family: sans-serif;
-      text-shadow: 2px 2px 4px black;
-     box-shadow: 1 1 1re
-
 }
 .v-btn{
   margin-top: 38px;
@@ -195,19 +231,5 @@ a {
 li{
 
 list-style: none;
-}
-.function-list{
-  display: flex;
-  margin-top: 50px;
-}
-.function{
-  width: 30%;
-  margin: 0 30px;
-}
-.function-title{
-  border: solid 3px orange;
-  padding: 0.5em;
-  border-radius: 0.5em;
-
 }
 </style>
