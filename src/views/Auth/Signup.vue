@@ -24,6 +24,7 @@
     ></v-text-field>
 
     <v-btn
+    outlined
       :disabled="!valid"
       color="success"
       class="mr-4"
@@ -36,6 +37,7 @@
       color="error"
       class="mr-4"
       @click="reset"
+      outlined
     >
       Reset Form
     </v-btn>
@@ -105,6 +107,7 @@ import {dbUsers} from "@/db"
 <style scoped>
 .v-form{
   width: 90%;
+  height: 300px;
   margin: 0 auto;
 }
 h1 {
