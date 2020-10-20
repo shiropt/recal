@@ -80,10 +80,10 @@ h2:after {
   background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
 }
 h3{
-  padding: 0.5em;/*文字周りの余白*/
-  color: #494949;/*文字色*/
-  background: #fffaf4;/*背景色*/
-  border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+  padding: 0.5em;
+  color: #494949;
+  background: #fffaf4;
+  border-left: solid 5px #ffaf58;
 }
 .title{
   margin-bottom: 30px;
