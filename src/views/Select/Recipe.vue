@@ -18,15 +18,18 @@
       </li>
     </template>
     </ul>
+    <Rank />
+
   </div>
 </template>
 <script>
 const axios = require('axios').default;
 import "axios"
+import Rank from "@/components/Rank.vue"
 import RecipeForm from "@/components/RecipeForm.vue"
 export default {
   components:{
-    RecipeForm
+    RecipeForm,Rank
       },
     data(){
      return {
