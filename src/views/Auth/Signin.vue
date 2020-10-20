@@ -1,6 +1,5 @@
 <template>
   <v-form
-    ref="form"
     v-model="valid"
     lazy-validation
   >
@@ -41,15 +40,6 @@
     >
       ゲストログイン
     </v-btn>
-
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-      outlined
-    >
-      Reset Form
-    </v-btn>
     <p>{{errorMessage}}</p>
   </v-form>
 
@@ -77,9 +67,7 @@ import firebase from 'firebase'
       validate () {
         this.$refs.form.validate()
       },
-      reset () {
-        this.$refs.form.reset()
-      },
+  
       async signIn(){
         this.$store.commit("loading");
         try{

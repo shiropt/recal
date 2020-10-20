@@ -1,6 +1,5 @@
 <template>
   <v-form
-    ref="form"
     v-model="valid"
     lazy-validation
   >
@@ -31,15 +30,6 @@
       @click="validate; signUp()"
     >
       新規登録
-    </v-btn>
-
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-      outlined
-    >
-      Reset Form
     </v-btn>
     <p>{{errorMessage}}</p>
    
@@ -72,10 +62,6 @@ import {dbUsers} from "@/db"
       validate () {
         this.$refs.form.validate()
       },
-      reset () {
-        this.$refs.form.reset()
-      },
-
       async signUp() {
           this.$store.commit("loading");
         try{
