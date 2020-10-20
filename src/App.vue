@@ -41,13 +41,6 @@
             </v-list-item>
             <v-list-item>
               <v-list-item-title>
-                 <v-btn color="orange" class="mr-4">
-   <router-link :to="{name: 'Search', params:{id:$route.params.id}}" tag="a">ピックアップメニュー</router-link>
-  </v-btn>
-              </v-list-item-title>
-            </v-list-item>
-            <v-list-item>
-              <v-list-item-title>
                 <Dialog
                   btnTitle="記録する"
                   :saveData ="saveMenu"
