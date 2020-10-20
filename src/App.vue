@@ -126,6 +126,14 @@ export default {
      alert(error.message)
    }
  },
+ success(pos){
+      const crd = pos.coords;
+      this.$store.commit("setCrd",crd)
+    },
+  },
+  created(){
+   navigator.geolocation.getCurrentPosition(this.success);
+
   }
   }
 </script>
