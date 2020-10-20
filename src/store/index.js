@@ -19,7 +19,8 @@ export default new Vuex.Store({
     user: {
       authState: false,
       currentUserId: null,
-      dbUserId:null
+      dbUserId: null,
+      crd:null
       
     },
     everydayMenu: [
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     dbMenu:null
   },
   mutations: {
+    setCrd(state,crd) {
+      state.user.crd = crd
+    },
     loading(state) {
       state.loading=true
     },

@@ -115,7 +115,7 @@ export default {
       required:true
     },
     budget:{
-      type:Number,
+      type:[String, Number],
       required:true
     },
     pr:{
@@ -147,6 +147,7 @@ flex-direction:column;
 }
 .store-title{
   text-shadow: 1px 1px 0 rgba(0,0,0,.5);
+background-color: rgba(0,0,0,.5);
 
 }
 .v-image{
