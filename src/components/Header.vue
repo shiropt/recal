@@ -21,9 +21,6 @@
   <v-btn text class="mr-4">
    <router-link :to="{name: 'Store', params:{id:$route.params.id}}" tag="a">外食する</router-link>
   </v-btn>
-  <v-btn text class="mr-4">
-   <router-link :to="{name: 'Search', params:{id:$route.params.id}}" tag="a">ピックアップ</router-link>
-  </v-btn>
   <RecordButton
   btnTitle="記録する"
    :saveData ="saveMenu"
