@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="pickup-menu">
   <div class="title">
-   <h2>ピックアップメニュー</h2>
+   <h3>ピックアップメニューから探す</h3>
   </div>
   <ul>
   <template v-for="(rank,index) in pickupMenu">
@@ -79,6 +79,12 @@ h2:after {
   background: -webkit-linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
   background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
 }
+h3{
+  padding: 0.5em;/*文字周りの余白*/
+  color: #494949;/*文字色*/
+  background: #fffaf4;/*背景色*/
+  border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+}
 .title{
   margin-bottom: 30px;
   width: 80%;
@@ -124,5 +130,8 @@ li{
   content: "";
   display: block;
   clear: both;
+}
+.pickup-menu{
+  margin-top: 60px;
 }
 </style>
